@@ -1,0 +1,19 @@
+@keyframes blink {
+    0% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+.blink {
+    animation-name: blink;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    transform-origin: center bottom;
+}
+

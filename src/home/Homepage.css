@@ -1,0 +1,19 @@
+.home{
+    display: block;
+    font-family: 'Press Start 2P', cursive;
+}
+.home.hide {
+    animation: slide-left 1s linear;
+}
+
+@keyframes slide-left {
+    0% {
+        transform: translateX(0);
+    }
+    99% {
+        transform: translateX(-100%);
+    }
+    100%{
+        display: none;
+    }
+}

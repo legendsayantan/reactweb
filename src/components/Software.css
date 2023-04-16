@@ -1,0 +1,33 @@
+.software-card{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 100px;
+    padding: 10px;
+    margin-right: 5px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    cursor: pointer;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.software-card:hover{
+    transform: scale(1.025);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+.software-card-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    align-content: center;
+}
+.software-card_image{
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    object-position: center;
+    border-radius: 50%;
+}

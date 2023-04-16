@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Online Android Debloater",
+    "desc": "Uninstall useless apps from your android device, hassle-free.",
+    "path": "../pages/debloat",
+    "imageurl": "",
+    "scale": 1
+  },
+  {
+    "name": "ThemePatcher",
+    "desc": "Get free themes on Oppo or Realme Android device.",
+    "path": "/themepatcher",
+    "imageurl": "",
+    "scale": 1
+  },
+  {
+    "name": "Xcrypt",
+    "desc": "Securely encrypt or decrypt file in Android or Windows.",
+    "path": "/xcrypt",
+    "imageurl": "https://rawcdn.githack.com/legendsayantan/Xcrypt-windows/4b4c493cbc863b30fe2de1250d2823bce1d94de3/src/main/resources/com/legendsayantan/xcrypt/xcrypt.png",
+    "scale": 1
+  },
+  {
+    "name": "Screenery",
+    "desc": "Keep Android Screen Awake or make it Dim, and more.",
+    "path": "/screenery",
+    "imageurl": "https://rawcdn.githack.com/legendsayantan/Screenery/c518b7cafef4f26370a7ccda6489e720eb7dc647/app/src/main/res/drawable/image.png",
+    "scale": 0.85
+  },
+  {
+    "name": "AutoReact",
+    "desc": "Automated Reactions for Facebook and Instagram.",
+    "path": "/autoreact",
+    "imageurl": "https://rawcdn.githack.com/legendsayantan/AutoReact/a09c9035eb03668051750084f7ce9b457bb2d4ec/app/src/main/res/drawable-v24/logo.png",
+    "scale": 1
+  },
+  {
+    "name": "WebMimic",
+    "desc": "Record and Replay user actions on websites.",
+    "path": "/webmimic",
+    "imageurl": "https://rawcdn.githack.com/legendsayantan/WebMimic/7f790100059935a6cf05def8c54cc56416a9ae8d/app/src/main/res/mipmap-v26/launcher.png",
+    "scale": 1.5
+  }
+]

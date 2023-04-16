@@ -1,0 +1,61 @@
+.cursiveHeader{
+    color: #002147;
+    margin: 10px 25px;
+    width: fit-content;
+    font-family: "Pristina", cursive;
+}
+#top_layer_homelink{
+    background-image: linear-gradient(#FF9506,#FF9506, #9b5d01);
+    border-radius: 0 25px 25px 0;
+    margin-right: 8px;
+    height: 50px;
+    width: fit-content;
+    float: left;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+#bottom_layer_homelink{
+    background-image: linear-gradient(#ffbc62,#ffbc62, #dc8001);
+    border-radius: 0 27px 27px 0;
+    height: 50px;
+    padding: 0;
+    width: fit-content;
+    float: left;
+}
+#top_layer_menu{
+    background-image: linear-gradient(#FF9506,#FF9506, #9b5d01);
+    border-radius: 25px 0 0 25px;
+    margin-left: 8px;
+    height: 50px;
+    width: fit-content;
+    float: right;
+    justify-content: center;
+    align-items: center;
+}
+#bottom_layer_menu{
+    background-image: linear-gradient(#ffbc62,#ffbc62, #dc8001);
+    border-radius: 27px 0 0 27px;
+    height: 50px;
+    padding: 0;
+    width: fit-content;
+    top:0;
+    cursor: pointer;
+}
+#totalHeader{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+}
+.slide-up {
+    transform: translateY(-110%);
+    transition: transform 0.5s ease-out;
+}
+.slide-up.show {
+    transform: translateY(0);
+    cursor: pointer;
+}
+

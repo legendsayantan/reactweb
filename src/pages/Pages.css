@@ -1,0 +1,119 @@
+.page{
+    position: absolute;
+    top: 50px;
+    bottom: 100px;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.05);
+
+    opacity: 0;
+    transform: translateY(50%);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.markdown{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 10px;
+    justify-content: center;
+    color: #ffbc62;
+    animation: fadeIn 0.5s linear;
+    overflow: visible;
+}
+
+.markdown-container{
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    margin: 10px;
+    padding: 0px 10px;
+    overflow: auto;
+    cursor: pointer;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.markdown-container::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+.markdown-container::-webkit-scrollbar-track {
+    margin: 5px;
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+.markdown-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.markdown-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.20);
+}
+.page.show {
+    opacity: 1;
+    transform: translateY(0%);
+}
+.page-heading{
+    font-size: 20px;
+    font-family: cursive;
+    color: #FF9506;
+    margin: 10px 25px;
+    width: fit-content;
+}
+.button-glass {
+    display: inline-block;
+    background: linear-gradient(45deg, #fff, #f8f8f8);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #9cfffc;
+    transition: all 0.2s ease-in-out;
+}
+
+.button-glass:hover {
+    background: linear-gradient(45deg, #f8f8f8, #fff);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    color: #9cceff;
+    transform: translateY(-2px);
+}
+
+.text{
+    font-size: 16px;
+    color: #FF9506;
+    margin: 10px 25px;
+    width: fit-content;
+}
+.center {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    justify-content: center;
+    align-content: center;
+    align-items: baseline;
+    color: #fddcb0;
+    font-family: 'Palatino Linotype', serif;
+}
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

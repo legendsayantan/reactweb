@@ -1,0 +1,29 @@
+.article-card{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    width: 30vw;
+    height: 20vh;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    cursor: pointer;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.article-card:hover{
+    transform: scale(1.025);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+.article-card_image{
+    width: auto;
+    height: 12vh;
+    margin: 0px 10px;
+    border-radius: 15px;
+    filter: invert(56%) sepia(87%) saturate(1000%) hue-rotate(352deg) brightness(103%) contrast(108%);
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+}

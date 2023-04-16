@@ -1,0 +1,30 @@
+[
+  {
+    "name": "How to create character patterns programmatically?",
+    "desc": "A lot of students find it difficult to create patterns programmatically. Here are the simple logical steps to create any pattern design easily.",
+    "file": "how-to-create-pattern.md",
+    "image": "https://res.cloudinary.com/da0cp0s8l/image/upload/t_Thumbnail/v1681650962/c-ascii_xfffpm.png",
+    "tags": ["pattern", "loop","programming"]
+  },
+  {
+    "name": "How to create Any Pattern programmatically",
+    "desc": "A lot of people find it difficult to create patterns programmatically. Here are the simple logical steps to create any pattern design easily.",
+    "file": "./how-to-create-pattern.md",
+    "image": "",
+    "tags": ["pattern", "loop","programming"]
+  },
+  {
+    "name": "How to create Any Pattern programmatically",
+    "desc": "A lot of people find it difficult to create patterns programmatically. Here are the simple logical steps to create any pattern design easily.",
+    "file": "./how-to-create-pattern.md",
+    "image": "",
+    "tags": ["pattern", "loop","programming"]
+  },
+  {
+    "name": "How to create Any Pattern programmatically",
+    "desc": "A lot of people find it difficult to create patterns programmatically. Here are the simple logical steps to create any pattern design easily.",
+    "file": "./how-to-create-pattern.md",
+    "image": "",
+    "tags": ["pattern", "loop","programming"]
+  }
+]
