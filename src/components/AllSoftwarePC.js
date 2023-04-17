@@ -35,7 +35,9 @@ function AllSoftwarePC({shown,loadCustomPage}) {
                         desc={allData[0].desc}
                         imageUrl={allData[0].imageurl}
                         scale={allData[0].scale}
-                        onClickHandler={loadCustomPage(getCustomPages().debloat)}
+                        onClickHandler={()=>{
+                            loadCustomPage(getCustomPages().debloat)
+                        }}
                     />
                 </div>
             </div>

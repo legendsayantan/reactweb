@@ -9,6 +9,7 @@ import AllArticlesPC from "./components/AllArticlesPC";
 import TypingAnimation from "./components/TypingAnimation";
 import Homepage from "./home/Homepage";
 import MarkdownRenderer from "./pages/MarkdownRenderer";
+import Debloat from "./pages/Debloat";
 
 var AppStates = {
     none: 0,
@@ -45,7 +46,7 @@ function App() {
     const [x, setX] = React.useState(0)
     const [y, setY] = React.useState(0)
     const [currentAppState, setCurrentAppState] = React.useState(AppStates.home)
-    var customPage = CustomPages.markdown
+    const [customPage,setCustomPage] = React.useState(CustomPages.markdown)
     const [customPageName, setCustomPageName] = React.useState('');
     const setAppState = (state) => {
         if (state === currentAppState) return;
@@ -64,7 +65,7 @@ function App() {
         setY(event.clientY / window.innerHeight);
     }
     return (
-        <div onMouseMove={mouseMoveCallback}>
+        <div onMouseMove={mouseMoveCallback} style={{overflow:"hidden"}}>
             <CircularGradient x={x} y={y}/>
             <Header
                 mobile={portrait}
@@ -98,7 +99,7 @@ function App() {
                         <AllArticlesPC shown={currentAppState === AppStates.articles && (!portrait)}
                                        loadArticle={(article) => {
                                            if (article.isEmpty) return;
-                                           customPage = CustomPages.markdown;
+                                           setCustomPage(CustomPages.markdown)
                                            setAppState(AppStates.customPage);
                                            setCustomPageName(article);
                                        }}/>
@@ -108,7 +109,9 @@ function App() {
                     {(currentAppState === AppStates.software || currentAppState === AppStates.none) && !portrait &&
                         <AllSoftwarePC shown={currentAppState === AppStates.software && (!portrait)}
                                        loadCustomPage={(page) => {
-                                           customPage = page;
+                                           console.log('page',page)
+                                           setCustomPage(page)
+                                           setAppState(AppStates.customPage)
                                        }}
                         />
                     }
@@ -116,6 +119,11 @@ function App() {
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
                     {(currentAppState === AppStates.customPage) && customPage === CustomPages.markdown
                         &&<MarkdownRenderer file={customPageName}/>
+                    }
+                </div>
+                <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
+                    {(currentAppState === AppStates.customPage) && customPage===CustomPages.debloat
+                    && <Debloat />
                     }
                 </div>
                 <div style={footerStyle}>

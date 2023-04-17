@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {ComponentPreview, Previews} from '@react-buddy/ide-toolbox'
 import {PaletteTree} from './palette'
 import Homelink from "../header/Homelink";
@@ -17,6 +17,8 @@ import Article from "../components/Article";
 import AllArticlesPC from "../components/AllArticlesPC";
 import TypingAnimation from "../components/TypingAnimation";
 import MarkdownRenderer from "../pages/MarkdownRenderer";
+import AppItem from "../components/AppItem";
+import Popup from "../components/Popup";
 
 const ComponentPreviews = () => {
     return (
@@ -68,6 +70,12 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/MarkdownRenderer">
                 <MarkdownRenderer/>
+            </ComponentPreview>
+            <ComponentPreview path="/AppItem">
+                <AppItem/>
+            </ComponentPreview>
+            <ComponentPreview path="/Popup">
+                <Popup/>
             </ComponentPreview>
         </Previews>
     )
