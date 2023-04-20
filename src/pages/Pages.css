@@ -11,7 +11,6 @@
     cursor: pointer;
     backdrop-filter: blur(1px);
     background-color: rgba(255, 255, 255, 0.05);
-    animation: fadeIn 0.5s linear;
 }
 .page::-webkit-scrollbar {
     width: 20px;
@@ -34,6 +33,14 @@
 .page::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.20);
 }
+.showpage{
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.hidepage{
+    opacity: 0;
+    transition: opacity 0.5s;
+}
 .markdown{
     display: flex;
     flex-direction: row;
@@ -41,17 +48,15 @@
     padding-bottom: 10px;
     justify-content: center;
     color: #ffbc62;
-    animation: fadeIn 0.5s linear;
     overflow: visible;
 }
-
 .markdown-container{
     border-radius: 10px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     height: 100%;
     width: 100%;
     margin: 10px;
-    padding: 0px 10px;
+    padding: 0 10px;
     overflow: auto;
     cursor: pointer;
     backdrop-filter: blur(1px);
@@ -79,10 +84,16 @@
     background: rgba(255, 255, 255, 0.20);
 }
 .page-heading{
-    font-size: 20px;
+    font-size: 25px;
     font-family: cursive;
     color: #FF9506;
     margin: 10px 25px;
+    width: fit-content;
+}
+.page-content{
+    font-size: 16px;
+    color: #FF9506;
+    margin: 10px;
     width: fit-content;
 }
 .input-glass{
@@ -137,12 +148,4 @@
     align-items: baseline;
     color: #fddcb0;
     font-family: 'Palatino Linotype', serif;
-}
-@keyframes fadeIn {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
 }

@@ -31,3 +31,29 @@
         box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.3) inset;
     }
 }
+.spawn{
+    animation: spawn 0.25s linear forwards;
+}
+.pop{
+    animation: pop 0.1s linear forwards;
+}
+@keyframes spawn {
+    0%{
+        transform: translateY(-120%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes pop {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}

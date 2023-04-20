@@ -16,7 +16,7 @@ import AllSoftwarePC from "../components/AllSoftwarePC";
 import Article from "../components/Article";
 import AllArticlesPC from "../components/AllArticlesPC";
 import TypingAnimation from "../components/TypingAnimation";
-import MarkdownRenderer from "../pages/MarkdownRenderer";
+import MarkdownPage from "../pages/MarkdownPage";
 import AppItem from "../components/AppItem";
 import Popup from "../components/Popup";
 
@@ -68,8 +68,8 @@ const ComponentPreviews = () => {
             <ComponentPreview path="/TypingAnimation">
                 <TypingAnimation/>
             </ComponentPreview>
-            <ComponentPreview path="/MarkdownRenderer">
-                <MarkdownRenderer/>
+            <ComponentPreview path="/MarkdownPage">
+                <MarkdownPage/>
             </ComponentPreview>
             <ComponentPreview path="/AppItem">
                 <AppItem/>

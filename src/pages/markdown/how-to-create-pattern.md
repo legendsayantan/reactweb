@@ -53,7 +53,7 @@ because the whitespaces come first in a line, we would write the loop to print w
 for (int line_count = 1; line_count <= 4; line_count++)
 {
     // print whitespaces
-    for (int first_text_unit = 1; first_text_unit <= 4 - line_count; first_text_unit--)
+    for (int whitespaces = 1; whitespaces <= 4 - line_count; whitespaces++)
     {
         printf(" ");
     }
@@ -65,13 +65,13 @@ Now, we have to print the asterisk-space. We have to print ```line count``` numb
 for (int line_count = 1; line_count <= 4; line_count++)
 {
     // print whitespaces
-    for (int first_text_unit = 1; first_text_unit <= 4 - line_count; first_text_unit--)
+    for (int whitespaces = 1; whitespaces <= 4 - line_count; whitespaces++)
     {
         printf(" ");
     }
     
     // print asterisk-space
-    for (int second_text_unit = 1; second_text_unit <= line_count; second_text_unit++)
+    for (int asterisks = 1; asterisks <= line_count; asterisks++)
     {
         printf("* ");
     }
@@ -83,13 +83,13 @@ Now, as soon as we are done printing characters in a particular line we have to 
 for (int line_count = 1; line_count <= 4; line_count++)
 {
     // print whitespaces
-    for (int first_text_unit = 1; first_text_unit <= 4 - line_count; first_text_unit--)
+    for (int whitespaces = 1; whitespaces <= 4 - line_count; whitespaces++)
     {
         printf(" ");
     }
     
     // print asterisk-space
-    for (int second_text_unit = 1; second_text_unit <= line_count; second_text_unit++)
+    for (int asterisks = 1; asterisks <= line_count; asterisks++)
     {
         printf("* ");
     }

@@ -65,7 +65,7 @@ function createAppList(json,apps){
     return appInfos
 }
 
-function Debloat({shown = true}) {
+function Debloat({shown,goBack}) {
     const [connected, setConnected] = useState(false);
     const [waitingForAdb,setWaitingForAdb] = useState(false)
     const [foundApps,setFoundApps] = useState([]);
@@ -75,21 +75,21 @@ function Debloat({shown = true}) {
     }
 
     return (
-        <div style={{width:window.innerWidth,height:window.innerHeight-150,display:"flex",flexDirection:"row",justifyContent:"center"}}>
-            <div className={`page ${shown ? '' : ''}`} style={{overflow:"auto"}}>
+        <div className={`${shown?'showpage':'hidepage'}`} style={{width:window.innerWidth,height:window.innerHeight-150,display:"flex",flexDirection:"row",justifyContent:"center"}}>
+            <div className={`page`} style={{overflow:"auto"}}>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <img alt={''} style={{
                         height: '35px',
                         width: '35px',
                         filter: 'invert(56%) sepia(87%) saturate(1230%) hue-rotate(352deg) brightness(103%) contrast(108%)'
-                    }} src="https://www.svgrepo.com/show/450517/back.svg"/>
-                    <h3 className={"page-heading"} style={{
+                    }} src="https://www.svgrepo.com/show/450517/back.svg" onClick={goBack}/>
+                    <h2 className={"page-heading"} style={{
                         height: '30px',
                         width: '100%',
                         margin: 0,
                         textAlign: "center",
                         justifyContent: "center"
-                    }}>Online Android Debloater</h3>
+                    }}>Online Android Debloater</h2>
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row',justifyContent:"center"}}>
                     <h6 className={'text'}>Have a phone full of bloatwares? Clean them up without installing anything!</h6>
@@ -139,7 +139,7 @@ function Debloat({shown = true}) {
                         doViaAdb(getAdbModes().disconnect, (e) => {
                             setConnected(false)
                             setFoundApps([])
-                            window.location.href += ''
+                            goBack()
                         }).then()
                     }}>
                         <p style={{margin:'0px'}}>

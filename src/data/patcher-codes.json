@@ -1,0 +1,5 @@
+[
+  "settings put system persist.sys.oppo.theme_uuid -1\n settings put system persist.sys.oplus.theme_uuid -1\nsettings put system persist.sys.trial.theme 0\nsettings put secure persist.sys.oppo.theme_uuid -1\nsettings put secure persist.sys.oplus.theme_uuid -1\nsettings put secure persist.sys.trial.theme 0\n",
+  "settings put system persist.sys.trial.font 0\n settings put secure persist.sys.trial.font 0\n",
+  "settings put system persist.sys.oplus.live_wp_uuid default_live_wp_package_name\n settings put system persist.sys.oppo.live_wp_uuid -1\n settings put system persist.sys.trial.live_wp 0\n settings put secure persist.sys.oplus.live_wp_uuid default_live_wp_package_name\n settings put secure persist.sys.oppo.live_wp_uuid -1\n settings put secure persist.sys.trial.live_wp 0\n"
+]

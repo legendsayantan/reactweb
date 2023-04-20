@@ -13,7 +13,7 @@ function AllArticlesPC({shown,loadArticle}){
         height: 'auto',
         overflow: 'visible',
     }
-    const getArticleStyle = () => {
+    const getArticleStyle = (x,y) => {
         return {
             margin: '0 15px',
             transform: 'translateY(0)',

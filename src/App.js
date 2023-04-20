@@ -8,20 +8,21 @@ import AllSoftwarePC from "./components/AllSoftwarePC";
 import AllArticlesPC from "./components/AllArticlesPC";
 import TypingAnimation from "./components/TypingAnimation";
 import Homepage from "./home/Homepage";
-import MarkdownRenderer from "./pages/MarkdownRenderer";
+import MarkdownPage from "./pages/MarkdownPage";
 import Debloat from "./pages/Debloat";
+import Themepatcher from "./pages/Themepatcher";
+import software from "./components/Software";
+import Xcrypt from "./pages/Xcrypt";
+import Screenery from "./pages/Screenery";
+import Autoreact from "./pages/Autoreact";
+import Webmimic from "./pages/Webmimic";
 
 var AppStates = {
-    none: 0,
-    home: 1,
-    articles: 2,
-    software: 3,
-    customPage: 4
+    home: 0,
+    articles: 1,
+    software: 2,
+    customPage: 3
 };
-var CustomPages = {
-    markdown: 0,
-    debloat: 1,
-}
 
 function App() {
     const [portrait, setPortrait] = useState(window.innerWidth < window.innerHeight);
@@ -43,23 +44,22 @@ function App() {
         height: "100px",
         overflow: "hidden"
     }
+    //states
     const [x, setX] = React.useState(0)
     const [y, setY] = React.useState(0)
     const [currentAppState, setCurrentAppState] = React.useState(AppStates.home)
-    const [customPage,setCustomPage] = React.useState(CustomPages.markdown)
-    const [customPageName, setCustomPageName] = React.useState('');
+    const [previousAppState,setPreviousAppState] = React.useState(AppStates.home)
+    const [customPage,setCustomPage] = React.useState(0)
+    const [customPageFile, setCustomPageFile] = React.useState('');
     const setAppState = (state) => {
-        if (state === currentAppState) return;
-        if (currentAppState === AppStates.home) setPlatformSpeed(6);
-        setCurrentAppState(0);
+        setCurrentAppState(state)
         setTimeout(() => {
-            setPlatformSpeed(0);
-            setCurrentAppState(state);
-        }, 800)
+            setPreviousAppState(state)
+        }, 750)
     }
     useEffect(() => {
-        console.log(currentAppState,customPage,customPageName);
-    }, [currentAppState,customPage,customPageName]);
+        console.log(currentAppState,previousAppState);
+    }, [currentAppState,previousAppState]);
     const mouseMoveCallback = (event) => {
         setX(event.clientX / window.innerWidth);
         setY(event.clientY / window.innerHeight);
@@ -69,7 +69,6 @@ function App() {
             <CircularGradient x={x} y={y}/>
             <Header
                 mobile={portrait}
-                appState={currentAppState}
                 home={() => {
                     if (currentAppState === AppStates.home) {
                         window.location.hostname += "/";
@@ -88,28 +87,27 @@ function App() {
                     <StarField count={25} width={window.innerWidth} height={window.innerHeight * 0.8}/>
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
-                    {(currentAppState === AppStates.home || currentAppState === AppStates.none) &&
-                        <Homepage shown={currentAppState === AppStates.home} switchState={(state) => {
+                    {(currentAppState === AppStates.home || previousAppState===AppStates.home) &&
+                        <Homepage shown={currentAppState === previousAppState} switchState={(state) => {
                             setAppState(state);
                         }}/>
                     }
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
-                    {(currentAppState === AppStates.articles || currentAppState === AppStates.none) && !portrait &&
-                        <AllArticlesPC shown={currentAppState === AppStates.articles && (!portrait)}
+                    {(currentAppState === AppStates.articles || previousAppState ===AppStates.articles) && !portrait &&
+                        <AllArticlesPC shown={currentAppState === previousAppState}
                                        loadArticle={(article) => {
                                            if (article.isEmpty) return;
-                                           setCustomPage(CustomPages.markdown)
+                                           setCustomPage(0)
                                            setAppState(AppStates.customPage);
-                                           setCustomPageName(article);
+                                           setCustomPageFile(article);
                                        }}/>
                     }
                 </div>
                 <div style={{position: "absolute", bottom: "100px"}}>
-                    {(currentAppState === AppStates.software || currentAppState === AppStates.none) && !portrait &&
-                        <AllSoftwarePC shown={currentAppState === AppStates.software && (!portrait)}
+                    {(currentAppState === AppStates.software ||previousAppState === AppStates.software ) && !portrait &&
+                        <AllSoftwarePC shown={currentAppState === previousAppState}
                                        loadCustomPage={(page) => {
-                                           console.log('page',page)
                                            setCustomPage(page)
                                            setAppState(AppStates.customPage)
                                        }}
@@ -117,17 +115,20 @@ function App() {
                     }
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
-                    {(currentAppState === AppStates.customPage) && customPage === CustomPages.markdown
-                        &&<MarkdownRenderer file={customPageName}/>
-                    }
-                </div>
-                <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
-                    {(currentAppState === AppStates.customPage) && customPage===CustomPages.debloat
-                    && <Debloat />
-                    }
+                    {(currentAppState === AppStates.customPage || previousAppState === AppStates.customPage) && <>
+                        {customPage===0 && <MarkdownPage shown={currentAppState===previousAppState} file={customPageFile}/>}
+                        {customPage===1 && <Debloat shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
+                        {customPage===2 && <Themepatcher shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
+                        {customPage===3 && <Xcrypt shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
+                        {customPage===4 && <Screenery shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
+                        {customPage===5 && <Autoreact shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
+                        {customPage===6 && <Webmimic shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
+                    </>}
                 </div>
                 <div style={footerStyle}>
-                    <Platform speed={platformSpeed}/>
+                    <Platform speed={
+                        (currentAppState!==AppStates.home&&previousAppState===AppStates.home)?5.5:platformSpeed
+                    }/>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "center", color: '#0154b4',}}>
                         {portrait &&
                             <TypingAnimation text={
@@ -146,9 +147,6 @@ function App() {
 }
 
 export default App;
-export let getCustomPages = () => {
-    return CustomPages;
-}
 export let getAppStates = () => {
     return AppStates
 }
