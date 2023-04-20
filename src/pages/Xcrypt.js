@@ -1,10 +1,17 @@
 import "./Pages.css"
 import React from "react";
 import doViaAdb, {getAdbModes} from "../js/adb";
-function Xcrypt({shown,goBack}){
-    return(
-        <div className={`${shown?'showpage':'hidepage'}`} style={{width:window.innerWidth,height:window.innerHeight-150,display:"flex",flexDirection:"row",justifyContent:"center"}}>
-            <div className={`page`} style={{overflow:"auto"}}>
+
+function Xcrypt({shown, goBack}) {
+    return (
+        <div className={`${shown ? 'showpage' : 'hidepage'}`} style={{
+            width: window.innerWidth,
+            height: window.innerHeight - 150,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center"
+        }}>
+            <div className={`page`} style={{overflow: "auto"}}>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <img alt={''} style={{
                         height: '35px',
@@ -17,10 +24,12 @@ function Xcrypt({shown,goBack}){
                         margin: 0,
                         textAlign: "center",
                         justifyContent: "center"
-                    }}><img src={'https://user-images.githubusercontent.com/69689739/190592603-f8215e2f-ab47-4701-aead-8d01a14245b1.png'} alt={''}/></div>
+                    }}><img
+                        src={'https://user-images.githubusercontent.com/69689739/190592603-f8215e2f-ab47-4701-aead-8d01a14245b1.png'}
+                        alt={''}/></div>
                 </div>
-                <div className={'page-content'} style={{marginTop:'75px'}}>
-                    <h3 >Why Xcrypt?</h3>
+                <div className={'page-content'} style={{marginTop: '75px'}}>
+                    <h3>Why Xcrypt?</h3>
                     <ul>
                         <li>
                             <p>Xcrypt is open-source and operates fully offline, no data ever leaves your phone or
@@ -52,7 +61,7 @@ function Xcrypt({shown,goBack}){
                     </ul>
                 </div>
                 <div className={'page-content'}>
-                    <h3 >Use Cases</h3>
+                    <h3>Use Cases</h3>
                     <ul>
                         <li>
                             <p>Hide files from other people, as simple as that.</p>
@@ -67,34 +76,51 @@ function Xcrypt({shown,goBack}){
                         </li>
                     </ul>
                 </div>
-                <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%"}}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%"
+                }}>
                     <h3 className={'page-content'}>Install On :</h3>
-                    <div className="button-glass" style={{display:'block',margin:'10px',padding:'5px 10px'}} onClick={()=>{
-                        //download file from GitHub
-                        window.open('https://github.com/legendsayantan/Xcrypt/blob/master/app/release/app-release.apk?raw=true')
-                    }}>
-                        <img style={{height:'50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'}/>
+                    <div className="button-glass" style={{display: 'block', margin: '10px', padding: '5px 10px'}}
+                         onClick={() => {
+                             //download file from GitHub
+                             window.open('https://github.com/legendsayantan/Xcrypt/blob/master/app/release/app-release.apk?raw=true')
+                         }}>
+                        <img style={{height: '50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'}/>
                     </div>
-                    <div className="button-glass" style={{display:'block',margin:'10px',padding:'5px 10px'}} onClick={()=>{
-                        //open GitHub releases
-                        window.open('https://github.com/legendsayantan/xcrypt-windows/releases')
-                    }}>
-                        <img style={{height:'50px'}} src={'https://img.icons8.com/color/2x/windows-10.png'}/>
+                    <div className="button-glass" style={{display: 'block', margin: '10px', padding: '5px 10px'}}
+                         onClick={() => {
+                             //open GitHub releases
+                             window.open('https://github.com/legendsayantan/xcrypt-windows/releases')
+                         }}>
+                        <img style={{height: '50px'}} src={'https://img.icons8.com/color/2x/windows-10.png'}/>
                     </div>
                 </div>
-                <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%",marginTop:'25px'}}>
-                    <div className="button-glass" style={{display:'block',margin:'10px',padding:'5px 10px'}} onClick={()=>{
-                        //open in new tab
-                        window.open('https://github.com/legendsayantan/Xcrypt')
-                    }}><p style={{margin:0,alignItems:"baseline"}}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                    marginTop: '25px'
+                }}>
+                    <div className="button-glass" style={{display: 'block', margin: '10px', padding: '5px 10px'}}
+                         onClick={() => {
+                             //open in new tab
+                             window.open('https://github.com/legendsayantan/Xcrypt')
+                         }}><p style={{margin: 0, alignItems: "baseline"}}>
                         Source Code for Android
                     </p>
                     </div>
-                    <div className="button-glass" style={{display:'block',margin:'10px',padding:'5px 10px'}} onClick={()=>{
-                        //open in new tab
-                        window.open('https://github.com/legendsayantan/Xcrypt-windows')
-                    }}>
-                        <p style={{margin:0,alignItems:"center"}}>
+                    <div className="button-glass" style={{display: 'block', margin: '10px', padding: '5px 10px'}}
+                         onClick={() => {
+                             //open in new tab
+                             window.open('https://github.com/legendsayantan/Xcrypt-windows')
+                         }}>
+                        <p style={{margin: 0, alignItems: "center"}}>
                             Source Code for Windows
                         </p>
                     </div>
@@ -103,4 +129,5 @@ function Xcrypt({shown,goBack}){
         </div>
     )
 }
+
 export default Xcrypt

@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Star = ({ x, y, size }) => {
+const Star = ({x, y, size}) => {
     return (
         <svg
             viewBox="0 0 24 24"
             width={size}
             height={size}
-            style={{ position: 'absolute', left: x, top: y }}
+            style={{position: 'absolute', left: x, top: y}}
         >
             <polygon
                 fill="#FFF"

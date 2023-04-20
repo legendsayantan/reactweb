@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import React from "react";
-const TypingAnimation = ({ text, speed = 100 , delay =0,bold=true,onComplete=()=>{} }) => {
+
+const TypingAnimation = ({
+                             text, speed = 100, delay = 0, bold = true, onComplete = () => {
+    }
+                         }) => {
     const [displayText, setDisplayText] = useState('');
     useEffect(() => {
-        setTimeout(()=>{
+        setTimeout(() => {
             let currentIndex = 0;
             const intervalId = setInterval(() => {
                 setDisplayText(text.slice(0, currentIndex + 1));
@@ -14,7 +18,7 @@ const TypingAnimation = ({ text, speed = 100 , delay =0,bold=true,onComplete=()=
                 }
             }, speed);
             return () => clearInterval(intervalId);
-        },delay)
+        }, delay)
     }, [text, speed]);
 
     return (

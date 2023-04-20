@@ -48,8 +48,8 @@ function App() {
     const [x, setX] = React.useState(0)
     const [y, setY] = React.useState(0)
     const [currentAppState, setCurrentAppState] = React.useState(AppStates.home)
-    const [previousAppState,setPreviousAppState] = React.useState(AppStates.home)
-    const [customPage,setCustomPage] = React.useState(0)
+    const [previousAppState, setPreviousAppState] = React.useState(AppStates.home)
+    const [customPage, setCustomPage] = React.useState(0)
     const [customPageFile, setCustomPageFile] = React.useState('');
     const setAppState = (state) => {
         setCurrentAppState(state)
@@ -58,14 +58,14 @@ function App() {
         }, 750)
     }
     useEffect(() => {
-        console.log(currentAppState,previousAppState);
-    }, [currentAppState,previousAppState]);
+        console.log(currentAppState, previousAppState);
+    }, [currentAppState, previousAppState]);
     const mouseMoveCallback = (event) => {
         setX(event.clientX / window.innerWidth);
         setY(event.clientY / window.innerHeight);
     }
     return (
-        <div onMouseMove={mouseMoveCallback} style={{overflow:"hidden"}}>
+        <div onMouseMove={mouseMoveCallback} style={{overflow: "hidden"}}>
             <CircularGradient x={x} y={y}/>
             <Header
                 mobile={portrait}
@@ -87,14 +87,14 @@ function App() {
                     <StarField count={25} width={window.innerWidth} height={window.innerHeight * 0.8}/>
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
-                    {(currentAppState === AppStates.home || previousAppState===AppStates.home) &&
+                    {(currentAppState === AppStates.home || previousAppState === AppStates.home) &&
                         <Homepage shown={currentAppState === previousAppState} switchState={(state) => {
                             setAppState(state);
                         }}/>
                     }
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
-                    {(currentAppState === AppStates.articles || previousAppState ===AppStates.articles) && !portrait &&
+                    {(currentAppState === AppStates.articles || previousAppState === AppStates.articles) && !portrait &&
                         <AllArticlesPC shown={currentAppState === previousAppState}
                                        loadArticle={(article) => {
                                            if (article.isEmpty) return;
@@ -105,7 +105,7 @@ function App() {
                     }
                 </div>
                 <div style={{position: "absolute", bottom: "100px"}}>
-                    {(currentAppState === AppStates.software ||previousAppState === AppStates.software ) && !portrait &&
+                    {(currentAppState === AppStates.software || previousAppState === AppStates.software) && !portrait &&
                         <AllSoftwarePC shown={currentAppState === previousAppState}
                                        loadCustomPage={(page) => {
                                            setCustomPage(page)
@@ -116,18 +116,31 @@ function App() {
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
                     {(currentAppState === AppStates.customPage || previousAppState === AppStates.customPage) && <>
-                        {customPage===0 && <MarkdownPage shown={currentAppState===previousAppState} file={customPageFile}/>}
-                        {customPage===1 && <Debloat shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
-                        {customPage===2 && <Themepatcher shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
-                        {customPage===3 && <Xcrypt shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
-                        {customPage===4 && <Screenery shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
-                        {customPage===5 && <Autoreact shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
-                        {customPage===6 && <Webmimic shown={currentAppState===previousAppState} goBack={()=>{setAppState(AppStates.software)}}/>}
+                        {customPage === 0 &&
+                            <MarkdownPage shown={currentAppState === previousAppState} file={customPageFile}/>}
+                        {customPage === 1 && <Debloat shown={currentAppState === previousAppState} goBack={() => {
+                            setAppState(AppStates.software)
+                        }}/>}
+                        {customPage === 2 && <Themepatcher shown={currentAppState === previousAppState} goBack={() => {
+                            setAppState(AppStates.software)
+                        }}/>}
+                        {customPage === 3 && <Xcrypt shown={currentAppState === previousAppState} goBack={() => {
+                            setAppState(AppStates.software)
+                        }}/>}
+                        {customPage === 4 && <Screenery shown={currentAppState === previousAppState} goBack={() => {
+                            setAppState(AppStates.software)
+                        }}/>}
+                        {customPage === 5 && <Autoreact shown={currentAppState === previousAppState} goBack={() => {
+                            setAppState(AppStates.software)
+                        }}/>}
+                        {customPage === 6 && <Webmimic shown={currentAppState === previousAppState} goBack={() => {
+                            setAppState(AppStates.software)
+                        }}/>}
                     </>}
                 </div>
                 <div style={footerStyle}>
                     <Platform speed={
-                        (currentAppState!==AppStates.home&&previousAppState===AppStates.home)?5.5:platformSpeed
+                        (currentAppState !== AppStates.home && previousAppState === AppStates.home) ? 5.5 : platformSpeed
                     }/>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "center", color: '#0154b4',}}>
                         {portrait &&

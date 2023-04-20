@@ -2,6 +2,7 @@ import TypingAnimation from "../components/TypingAnimation";
 import React, {useCallback, useEffect, useState} from "react";
 import "./Homepage.css"
 import {getAppStates} from "../App";
+import Game from "./Game";
 
 function Homepage({shown, switchState}) {
     const [gamePlay, setGamePlay] = useState(-1);
@@ -41,8 +42,7 @@ function Homepage({shown, switchState}) {
     return (
         <div style={{width: window.innerWidth}} className={`home ${shown ? '' : 'hide'}`}>
             {gameRunning
-                ? <>
-                </>
+                ? <Game />
                 : <>
                     <div style={{
                         display: "flex",

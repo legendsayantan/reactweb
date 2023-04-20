@@ -5,11 +5,15 @@
     background-repeat: repeat;
     overflow: hidden;
 }
+
 .platform.moving {
     animation: slide linear infinite;
     overflow: hidden;
 }
+
 @keyframes slide {
-    100% { transform: translateX(-40px) }
+    100% {
+        transform: translateX(-40px)
+    }
 }
 

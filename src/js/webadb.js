@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-(function(root, factory) {
+(function (root, factory) {
     if (typeof exports === 'object') {
         module.exports = factory();
     } else {
         root.Adb = factory();
     }
-}(this, function() {
+}(this, function () {
 
     let Adb = {};
 
@@ -24,7 +24,7 @@
     let db = init_db();
     let keys = db.then(load_keys);
 
-    Adb.open = function(transport) {
+    Adb.open = function (transport) {
         if (transport == "WebUSB")
             return Adb.WebUSB.Transport.open();
 
@@ -33,40 +33,40 @@
 
     Adb.WebUSB = {};
 
-    Adb.WebUSB.Transport = function(device) {
+    Adb.WebUSB.Transport = function (device) {
         this.device = device;
 
         if (Adb.Opt.debug)
             console.log(this);
     };
 
-    Adb.WebUSB.Transport.open = function() {
+    Adb.WebUSB.Transport.open = function () {
         let filters = [
-            { classCode: 255, subclassCode: 66, protocolCode: 1 },
-            { classCode: 255, subclassCode: 66, protocolCode: 3 }
+            {classCode: 255, subclassCode: 66, protocolCode: 1},
+            {classCode: 255, subclassCode: 66, protocolCode: 3}
         ];
 
-        return navigator.usb.requestDevice({ filters: filters })
+        return navigator.usb.requestDevice({filters: filters})
             .then(device => device.open()
                 .then(() => new Adb.WebUSB.Transport(device)));
     };
 
-    Adb.WebUSB.Transport.prototype.close = function() {
+    Adb.WebUSB.Transport.prototype.close = function () {
         this.device.close();
     };
 
-    Adb.WebUSB.Transport.prototype.reset = function() {
+    Adb.WebUSB.Transport.prototype.reset = function () {
         this.device.reset();
     };
 
-    Adb.WebUSB.Transport.prototype.send = function(ep, data) {
+    Adb.WebUSB.Transport.prototype.send = function (ep, data) {
         if (Adb.Opt.dump)
             hexdump(new DataView(data), "" + ep + "==> ");
 
         return this.device.transferOut(ep, data);
     };
 
-    Adb.WebUSB.Transport.prototype.receive = function(ep, len) {
+    Adb.WebUSB.Transport.prototype.receive = function (ep, len) {
         return this.device.transferIn(ep, len)
             .then(response => {
                 if (Adb.Opt.dump)
@@ -76,7 +76,7 @@
             });
     };
 
-    Adb.WebUSB.Transport.prototype.find = function(filter) {
+    Adb.WebUSB.Transport.prototype.find = function (filter) {
         for (let i in this.device.configurations) {
             let conf = this.device.configurations[i];
             for (let j in conf.interfaces) {
@@ -86,7 +86,7 @@
                     if (filter.classCode == alt.interfaceClass &&
                         filter.subclassCode == alt.interfaceSubclass &&
                         filter.protocolCode == alt.interfaceProtocol) {
-                        return { conf: conf, intf: intf, alt: alt };
+                        return {conf: conf, intf: intf, alt: alt};
                     }
                 }
             }
@@ -95,17 +95,17 @@
         return null;
     }
 
-    Adb.WebUSB.Transport.prototype.isAdb = function() {
-        let match = this.find({ classCode: 255, subclassCode: 66, protocolCode: 1 });
+    Adb.WebUSB.Transport.prototype.isAdb = function () {
+        let match = this.find({classCode: 255, subclassCode: 66, protocolCode: 1});
         return match != null;
     };
 
-    Adb.WebUSB.Transport.prototype.isFastboot = function() {
-        let match = this.find({ classCode: 255, subclassCode: 66, protocolCode: 3 });
+    Adb.WebUSB.Transport.prototype.isFastboot = function () {
+        let match = this.find({classCode: 255, subclassCode: 66, protocolCode: 3});
         return match != null;
     };
 
-    Adb.WebUSB.Transport.prototype.getDevice = function(filter) {
+    Adb.WebUSB.Transport.prototype.getDevice = function (filter) {
         let match = this.find(filter);
         return this.device.selectConfiguration(match.conf.configurationValue)
             .then(() => this.device.claimInterface(match.intf.interfaceNumber))
@@ -113,7 +113,7 @@
             .then(() => match);
     };
 
-    Adb.WebUSB.Transport.prototype.connectAdb = function(banner, auth_user_notify = null) {
+    Adb.WebUSB.Transport.prototype.connectAdb = function (banner, auth_user_notify = null) {
         let VERSION = 0x01000000;
         let VERSION_NO_CHECKSUM = 0x01000001;
         let MAX_PAYLOAD = 256 * 1024;
@@ -123,7 +123,7 @@
 
         let version_used = Adb.Opt.use_checksum ? VERSION : VERSION_NO_CHECKSUM;
         let m = new Adb.Message("CNXN", version_used, MAX_PAYLOAD, "" + banner + "\0");
-        return this.getDevice({ classCode: 255, subclassCode: 66, protocolCode: 1 })
+        return this.getDevice({classCode: 255, subclassCode: 66, protocolCode: 1})
             .then(match => new Adb.WebUSB.Device(this, match))
             .then(adb => m.send_receive(adb)
                 .then((function do_auth_response(response) {
@@ -152,8 +152,8 @@
             );
     };
 
-    Adb.WebUSB.Transport.prototype.connectFastboot = function() {
-        return this.getDevice({ classCode: 255, subclassCode: 66, protocolCode: 3 })
+    Adb.WebUSB.Transport.prototype.connectFastboot = function () {
+        return this.getDevice({classCode: 255, subclassCode: 66, protocolCode: 3})
             .then(match => new Fastboot.WebUSB.Device(this, match))
             .then(fastboot => fastboot.send("getvar:max-download-size")
                 .then(() => fastboot.receive()
@@ -170,7 +170,7 @@
             );
     };
 
-    Adb.WebUSB.Device = function(transport, match) {
+    Adb.WebUSB.Device = function (transport, match) {
         this.transport = transport;
         this.max_payload = 4096;
 
@@ -180,27 +180,27 @@
         this.transport.reset();
     }
 
-    Adb.WebUSB.Device.prototype.open = function(service) {
+    Adb.WebUSB.Device.prototype.open = function (service) {
         return Adb.Stream.open(this, service);
     };
 
-    Adb.WebUSB.Device.prototype.shell = function(command) {
+    Adb.WebUSB.Device.prototype.shell = function (command) {
         return Adb.Stream.open(this, "shell:" + command);
     };
 
-    Adb.WebUSB.Device.prototype.tcpip = function(port) {
+    Adb.WebUSB.Device.prototype.tcpip = function (port) {
         return Adb.Stream.open(this, "tcpip:" + port);
     };
 
-    Adb.WebUSB.Device.prototype.sync = function() {
+    Adb.WebUSB.Device.prototype.sync = function () {
         return Adb.Stream.open(this, "sync:");
     };
 
-    Adb.WebUSB.Device.prototype.reboot = function(command="") {
+    Adb.WebUSB.Device.prototype.reboot = function (command = "") {
         return Adb.Stream.open(this, "reboot:" + command);
     };
 
-    Adb.WebUSB.Device.prototype.send = function(data) {
+    Adb.WebUSB.Device.prototype.send = function (data) {
         if (typeof data === "string") {
             let encoder = new TextEncoder();
             let string_data = data;
@@ -213,14 +213,14 @@
         return this.transport.send(this.ep_out, data);
     };
 
-    Adb.WebUSB.Device.prototype.receive = function(len) {
+    Adb.WebUSB.Device.prototype.receive = function (len) {
         return this.transport.receive(this.ep_in, len);
     };
 
     let Fastboot = {};
     Fastboot.WebUSB = {};
 
-    Fastboot.WebUSB.Device = function(transport, match) {
+    Fastboot.WebUSB.Device = function (transport, match) {
         this.transport = transport;
         this.max_datasize = 64;
 
@@ -228,7 +228,7 @@
         this.ep_out = get_ep_num(match.alt.endpoints, "out");
     };
 
-    Fastboot.WebUSB.Device.prototype.send = function(data) {
+    Fastboot.WebUSB.Device.prototype.send = function (data) {
         if (typeof data === "string") {
             let encoder = new TextEncoder();
             let string_data = data;
@@ -241,11 +241,11 @@
         return this.transport.send(this.ep_out, data);
     };
 
-    Fastboot.WebUSB.Device.prototype.receive = function() {
+    Fastboot.WebUSB.Device.prototype.receive = function () {
         return this.transport.receive(this.ep_in, 64);
     };
 
-    Adb.Message = function(cmd, arg0, arg1, data = null) {
+    Adb.Message = function (cmd, arg0, arg1, data = null) {
         if (cmd.length != 4)
             throw new Error("Invalid command: '" + cmd + "'");
 
@@ -256,7 +256,7 @@
         this.data = data;
     };
 
-    Adb.Message.checksum = function(data_view) {
+    Adb.Message.checksum = function (data_view) {
         let sum = 0;
 
         for (let i = 0; i < data_view.byteLength; i++)
@@ -265,7 +265,7 @@
         return sum & 0xffffffff;
     };
 
-    Adb.Message.send = function(device, message) {
+    Adb.Message.send = function (device, message) {
         let header = new ArrayBuffer(24);
         let cmd = encode_cmd(message.cmd);
         let magic = cmd ^ 0xffffffff;
@@ -308,7 +308,7 @@
         return seq;
     };
 
-    Adb.Message.receive = function(device) {
+    Adb.Message.receive = function (device) {
         return device.receive(24) //Adb.Opt.use_checksum ? 24 : 20)
             .then(response => {
                 let cmd = response.getUint32(0, true);
@@ -346,16 +346,16 @@
             });
     };
 
-    Adb.Message.prototype.send = function(device) {
+    Adb.Message.prototype.send = function (device) {
         return Adb.Message.send(device, this);
     };
 
-    Adb.Message.prototype.send_receive = function(device) {
+    Adb.Message.prototype.send_receive = function (device) {
         return this.send(device)
             .then(() => Adb.Message.receive(device));
     };
 
-    Adb.SyncFrame = function(cmd, length = 0, data = null) {
+    Adb.SyncFrame = function (cmd, length = 0, data = null) {
         if (cmd.length != 4)
             throw new Error("Invalid command: '" + cmd + "'");
 
@@ -364,7 +364,7 @@
         this.data = data;
     };
 
-    Adb.SyncFrame.send = function(stream, frame) {
+    Adb.SyncFrame.send = function (stream, frame) {
         let data = new ArrayBuffer(8);
         let cmd = encode_cmd(frame.cmd);
 
@@ -378,7 +378,7 @@
         return stream.send("WRTE", data);
     };
 
-    Adb.SyncFrame.receive = function(stream) {
+    Adb.SyncFrame.receive = function (stream) {
         return stream.receive()
             .then(response => {
                 if (response.cmd == "WRTE") {
@@ -451,16 +451,16 @@
             });
     };
 
-    Adb.SyncFrame.prototype.send = function(stream) {
+    Adb.SyncFrame.prototype.send = function (stream) {
         return Adb.SyncFrame.send(stream, this);
     };
 
-    Adb.SyncFrame.prototype.send_receive = function(stream) {
+    Adb.SyncFrame.prototype.send_receive = function (stream) {
         return Adb.SyncFrame.send(stream, this)
             .then(() => Adb.SyncFrame.receive(stream));
     };
 
-    Adb.Stream = function(device, service, local_id, remote_id) {
+    Adb.Stream = function (device, service, local_id, remote_id) {
         this.device = device;
         this.service = service;
         this.local_id = local_id;
@@ -470,7 +470,7 @@
 
     let next_id = 1;
 
-    Adb.Stream.open = function(device, service) {
+    Adb.Stream.open = function (device, service) {
         let local_id = next_id++;
         let remote_id = 0;
 
@@ -495,7 +495,7 @@
             });
     };
 
-    Adb.Stream.prototype.close = function() {
+    Adb.Stream.prototype.close = function () {
         if (this.local_id != 0) {
             this.local_id = 0;
             return this.send("CLSE");
@@ -511,12 +511,12 @@
         this.remote_id = 0;
     };
 
-    Adb.Stream.prototype.send = function(cmd, data=null) {
+    Adb.Stream.prototype.send = function (cmd, data = null) {
         let m = new Adb.Message(cmd, this.local_id, this.remote_id, data);
         return m.send(this.device);
     };
 
-    Adb.Stream.prototype.receive = function() {
+    Adb.Stream.prototype.receive = function () {
         return Adb.Message.receive(this.device)
             .then(response => {
                 // remote's prospective of local_id/remote_id is reversed
@@ -528,18 +528,18 @@
             });
     };
 
-    Adb.Stream.prototype.send_receive = function(cmd, data=null) {
+    Adb.Stream.prototype.send_receive = function (cmd, data = null) {
         return this.send(cmd, data)
             .then(() => this.receive());
     };
 
-    Adb.Stream.prototype.abort = function() {
+    Adb.Stream.prototype.abort = function () {
         if (Adb.Opt.debug)
             console.log("aborting...");
 
         let self = this;
-        return new Promise(function(resolve, reject) {
-            self.cancel = function() {
+        return new Promise(function (resolve, reject) {
+            self.cancel = function () {
                 if (Adb.Opt.debug)
                     console.log("aborted");
                 self.cancel = null;
@@ -548,7 +548,7 @@
         });
     };
 
-    Adb.Stream.prototype.stat = function(filename) {
+    Adb.Stream.prototype.stat = function (filename) {
         let frame = new Adb.SyncFrame("STAT", filename.length);
         return frame.send_receive(this)
             .then(check_ok("STAT failed on " + filename))
@@ -579,11 +579,11 @@
                 if (id != "STAT")
                     throw new Error("STAT failed on " + filename);
 
-                return { mode: mode, size: size, time: time };
+                return {mode: mode, size: size, time: time};
             });
     };
 
-    Adb.Stream.prototype.pull = function(filename) {
+    Adb.Stream.prototype.pull = function (filename) {
         let frame = new Adb.SyncFrame("RECV", filename.length);
         return frame.send_receive(this)
             .then(check_ok("PULL RECV failed on " + filename))
@@ -596,7 +596,9 @@
             .then(check_cmd("DATA", "PULL DATA failed on " + filename))
             .catch(err => {
                 return this.send("OKAY")
-                    .then(() => { throw err; });
+                    .then(() => {
+                        throw err;
+                    });
             })
             .then(response => {
                 return this.send("OKAY")
@@ -637,7 +639,7 @@
             });
     };
 
-    Adb.Stream.prototype.push_start = function(filename, mode) {
+    Adb.Stream.prototype.push_start = function (filename, mode) {
         let mode_str = mode.toString(10);
         let encoder = new TextEncoder();
 
@@ -656,7 +658,7 @@
             .then(check_ok("PUSH failed on " + filename));
     };
 
-    Adb.Stream.prototype.push_data = function(data) {
+    Adb.Stream.prototype.push_data = function (data) {
         if (typeof data === "string") {
             let encoder = new TextEncoder();
             let string_data = data;
@@ -675,7 +677,7 @@
             .then(check_ok("PUSH failed"));
     };
 
-    Adb.Stream.prototype.push_done = function() {
+    Adb.Stream.prototype.push_done = function () {
         let frame = new Adb.SyncFrame("DONE", Math.round(Date.now() / 1000));
         return frame.send_receive(this)
             .then(check_ok("PUSH failed"))
@@ -688,7 +690,7 @@
             });
     };
 
-    Adb.Stream.prototype.push = function(file, filename, mode, on_progress = null) {
+    Adb.Stream.prototype.push = function (file, filename, mode, on_progress = null) {
         // we need reduced logging during the data transfer otherwise the console may explode
         let old_debug = Adb.Opt.debug;
         let old_dump = Adb.Opt.dump;
@@ -726,7 +728,7 @@
             }));
     };
 
-    Adb.Stream.prototype.quit = function() {
+    Adb.Stream.prototype.quit = function () {
         let frame = new Adb.SyncFrame("QUIT");
         return frame.send_receive(this)
             .then(check_ok("QUIT failed"))
@@ -739,9 +741,8 @@
             });
     };
 
-    function check_cmd(cmd, err_msg)
-    {
-        return function(response) {
+    function check_cmd(cmd, err_msg) {
+        return function (response) {
             if (response.cmd == "FAIL") {
                 let decoder = new TextDecoder();
                 throw new Error(decoder.decode(response.data));
@@ -752,13 +753,11 @@
         };
     }
 
-    function check_ok(err_msg)
-    {
+    function check_ok(err_msg) {
         return check_cmd("OKAY", err_msg);
     }
 
-    function paddit(text, width, padding)
-    {
+    function paddit(text, width, padding) {
         let padlen = width - text.length;
         let padded = "";
 
@@ -768,28 +767,23 @@
         return padded + text;
     }
 
-    function toHex8(num)
-    {
+    function toHex8(num) {
         return paddit(num.toString(16), 2, "0");
     }
 
-    function toHex16(num)
-    {
+    function toHex16(num) {
         return paddit(num.toString(16), 4, "0");
     }
 
-    function toHex32(num)
-    {
+    function toHex32(num) {
         return paddit(num.toString(16), 8, "0");
     }
 
-    function toB64(buffer)
-    {
+    function toB64(buffer) {
         return btoa(new Uint8Array(buffer).reduce((s, b) => s + String.fromCharCode(b), ""));
     }
 
-    function hexdump(view, prefix="")
-    {
+    function hexdump(view, prefix = "") {
         let decoder = new TextDecoder();
 
         for (let i = 0; i < view.byteLength; i += 16) {
@@ -807,8 +801,7 @@
         }
     }
 
-    function get_ep_num(endpoints, dir, type = "bulk")
-    {
+    function get_ep_num(endpoints, dir, type = "bulk") {
         let e, ep;
         for (e in endpoints)
             if (ep = endpoints[e], ep.direction == dir && ep.type == type)
@@ -818,16 +811,14 @@
         throw new Error("Cannot find " + dir + " endpoint");
     }
 
-    function encode_cmd(cmd)
-    {
+    function encode_cmd(cmd) {
         let encoder = new TextEncoder();
         let buffer = encoder.encode(cmd).buffer;
         let view = new DataView(buffer);
         return view.getUint32(0, true);
     }
 
-    function decode_cmd(cmd)
-    {
+    function decode_cmd(cmd) {
         let decoder = new TextDecoder();
         let buffer = new ArrayBuffer(4);
         let view = new DataView(buffer);
@@ -835,16 +826,15 @@
         return decoder.decode(buffer);
     }
 
-    function generate_key()
-    {
+    function generate_key() {
         let extractable = Adb.Opt.dump;
 
         return crypto.subtle.generateKey({
             name: "RSASSA-PKCS1-v1_5",
             modulusLength: Adb.Opt.key_size,
             publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
-            hash: { name: "SHA-1" }
-        }, extractable, [ "sign", "verify" ])
+            hash: {name: "SHA-1"}
+        }, extractable, ["sign", "verify"])
             .then(key => {
                 if (!Adb.Opt.dump)
                     return key;
@@ -855,8 +845,7 @@
             });
     }
 
-    function do_auth(adb, keys, key_idx, token, do_auth_response, auth_user_notify)
-    {
+    function do_auth(adb, keys, key_idx, token, do_auth_response, auth_user_notify) {
         let AUTH_SIGNATURE = 2;
         let AUTH_RSAPUBLICKEY = 3;
 
@@ -874,7 +863,7 @@
                     .then(() => console.log("-----BEGIN TOKEN-----\n" + toB64(token) + "\n-----END TOKEN-----"));
             }
 
-            return seq.then(() => crypto.subtle.sign({ name: "RSASSA-PKCS1-v1_5" }, key.privateKey, token))
+            return seq.then(() => crypto.subtle.sign({name: "RSASSA-PKCS1-v1_5"}, key.privateKey, token))
                 .then(signed => {
                     if (Adb.Opt.dump)
                         console.log("-----BEGIN SIGNATURE-----\n" + toB64(signed) + "\n-----END SIGNATURE-----");
@@ -935,8 +924,7 @@
         });
     }
 
-    function privkey_dump(key)
-    {
+    function privkey_dump(key) {
         if (!key.privateKey.extractable) {
             console.log("cannot dump the private key, it's not extractable");
             return;
@@ -946,8 +934,7 @@
             .then(privkey => console.log("-----BEGIN PRIVATE KEY-----\n" + toB64(privkey) + "\n-----END PRIVATE KEY-----"));
     }
 
-    function pubkey_dump(key)
-    {
+    function pubkey_dump(key) {
         if (!key.publicKey.extractable) {
             console.log("cannot dump the public key, it's not extractable");
             return;
@@ -957,9 +944,8 @@
             .then(pubkey => console.log("-----BEGIN PUBLIC KEY-----\n" + toB64(pubkey) + "\n-----END PUBLIC KEY-----"));
     }
 
-    function read_blob(blob)
-    {
-        return new Promise(function(resolve, reject) {
+    function read_blob(blob) {
+        return new Promise(function (resolve, reject) {
             let reader = new FileReader();
             reader.onload = e => resolve(e.target.result);
             reader.onerror = e => reject(e.target.error);
@@ -967,16 +953,14 @@
         });
     }
 
-    function promisify(request, onsuccess = "onsuccess", onerror = "onerror")
-    {
+    function promisify(request, onsuccess = "onsuccess", onerror = "onerror") {
         return new Promise(function (resolve, reject) {
             request[onsuccess] = event => resolve(event.target.result);
             request[onerror] = event => reject(event.target.errorCode);
         });
     }
 
-    function init_db()
-    {
+    function init_db() {
         let req = window.indexedDB.open("WebADB", 1);
 
         req.onupgradeneeded = function (event) {
@@ -992,14 +976,13 @@
                 db.deleteObjectStore('keys');
             }
 
-            db.createObjectStore("keys", { autoIncrement: true });
+            db.createObjectStore("keys", {autoIncrement: true});
         };
 
         return promisify(req);
     }
 
-    function load_keys(db)
-    {
+    function load_keys(db) {
         let transaction = db.transaction("keys");
         let store = transaction.objectStore("keys");
         let cursor = store.openCursor();
@@ -1020,8 +1003,7 @@
         });
     }
 
-    function store_key(db, key)
-    {
+    function store_key(db, key) {
         let transaction = db.transaction("keys", "readwrite");
         let store = transaction.objectStore('keys');
         let request = store.put(key);
@@ -1033,8 +1015,7 @@
         });
     }
 
-    function clear_keys(db)
-    {
+    function clear_keys(db) {
         let transaction = db.transaction("keys", "readwrite");
         let store = transaction.objectStore("keys");
         let request = store.clear();

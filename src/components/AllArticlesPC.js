@@ -3,7 +3,8 @@ import PointedStar from "./PointedStar";
 import React from "react";
 import "./SectionsForPC.css"
 import allData from "../data/articles.json";
-function AllArticlesPC({shown,loadArticle}){
+
+function AllArticlesPC({shown, loadArticle}) {
     var flexStyle = {
         display: 'flex',
         flexDirection: 'row',
@@ -13,7 +14,7 @@ function AllArticlesPC({shown,loadArticle}){
         height: 'auto',
         overflow: 'visible',
     }
-    const getArticleStyle = (x,y) => {
+    const getArticleStyle = (x, y) => {
         return {
             margin: '0 15px',
             transform: 'translateY(0)',
@@ -21,7 +22,7 @@ function AllArticlesPC({shown,loadArticle}){
             transition: 'all 0.5s ease-in-out',
         }
     }
-    const getArticleHiddenStyle = (x,y) => {
+    const getArticleHiddenStyle = (x, y) => {
         return {
             margin: '0 15px',
             transform: `translate(${x}%,${y}%)`,
@@ -30,13 +31,13 @@ function AllArticlesPC({shown,loadArticle}){
         }
     }
     let allData = require('../data/articles.json');
-    return(
-        <div style={{width:window.innerWidth}}>
-            <div style={shown?getArticleStyle():getArticleHiddenStyle(0,-100)}>
+    return (
+        <div style={{width: window.innerWidth}}>
+            <div style={shown ? getArticleStyle() : getArticleHiddenStyle(0, -100)}>
                 <h3 className={'heading'}>Latest Articles</h3>
             </div>
             <div style={flexStyle}>
-                <div style={shown?getArticleStyle():getArticleHiddenStyle(-100,-100)} onClick={()=> {
+                <div style={shown ? getArticleStyle() : getArticleHiddenStyle(-100, -100)} onClick={() => {
                     loadArticle(allData[0].file);
                 }}>
                     <Article
@@ -45,7 +46,7 @@ function AllArticlesPC({shown,loadArticle}){
                         imageUrl={allData[0].image}
                     />
                 </div>
-                <div style={shown?getArticleStyle():getArticleHiddenStyle(100,-100)} onClick={()=> {
+                <div style={shown ? getArticleStyle() : getArticleHiddenStyle(100, -100)} onClick={() => {
                     loadArticle(allData[1].file);
                 }}>
                     <Article
@@ -55,13 +56,13 @@ function AllArticlesPC({shown,loadArticle}){
                     />
                 </div>
             </div>
-            <div style={{height:'50%'}}>
-                <div style={shown?getArticleStyle():getArticleHiddenStyle(0,500)}>
-                    <PointedStar />
+            <div style={{height: '50%'}}>
+                <div style={shown ? getArticleStyle() : getArticleHiddenStyle(0, 500)}>
+                    <PointedStar/>
                 </div>
             </div>
             <div style={flexStyle}>
-                <div style={shown?getArticleStyle():getArticleHiddenStyle(-100,100)} onClick={()=> {
+                <div style={shown ? getArticleStyle() : getArticleHiddenStyle(-100, 100)} onClick={() => {
                     loadArticle(allData[2].file);
                 }}>
                     <Article
@@ -70,7 +71,7 @@ function AllArticlesPC({shown,loadArticle}){
                         imageUrl={allData[2].image}
                     />
                 </div>
-                <div style={shown?getArticleStyle():getArticleHiddenStyle(100,100)} onClick={()=> {
+                <div style={shown ? getArticleStyle() : getArticleHiddenStyle(100, 100)} onClick={() => {
                     loadArticle(allData[3].file);
                 }}>
                     <Article
@@ -83,4 +84,5 @@ function AllArticlesPC({shown,loadArticle}){
         </div>
     )
 }
+
 export default AllArticlesPC;

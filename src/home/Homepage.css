@@ -1,7 +1,8 @@
-.home{
+.home {
     display: block;
     font-family: 'Press Start 2P', cursive;
 }
+
 .home.hide {
     animation: slide-left 1s linear;
 }
@@ -13,28 +14,29 @@
     99% {
         transform: translateX(-100%);
     }
-    100%{
+    100% {
         display: none;
     }
 }
 
-.blink{
+.blink {
     animation: blink 1s infinite;
 }
+
 @keyframes blink {
-    0%{
+    0% {
         opacity: 1;
     }
-    49%{
+    49% {
         opacity: 1;
     }
-    50%{
+    50% {
         opacity: 0;
     }
-    99%{
+    99% {
         opacity: 0;
     }
-    100%{
+    100% {
         opacity: 1;
     }
 }

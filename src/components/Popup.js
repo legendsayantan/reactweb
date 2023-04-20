@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import "../pages/Pages.css"
 
-const Popup = ({ showInput=true, text='test', onClose, onContinue }) => {
+const Popup = ({showInput = true, text = 'test', onClose, onContinue}) => {
     return (
         <div
             style={{
@@ -23,13 +23,13 @@ const Popup = ({ showInput=true, text='test', onClose, onContinue }) => {
                     backgroundColor: 'rgba(0, 0,0, 0.1)',
                     padding: '20px',
                     borderRadius: '20px',
-                    borderWidth:'5px',
-                    borderColor:'rgba(0,0,0,1)',
+                    borderWidth: '5px',
+                    borderColor: 'rgba(0,0,0,1)',
                     boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
                 }}
             >
-                <h4 style={{color:'#58beff'}}>{text}</h4>
-                {showInput && <input type="text" className={'input-glass'} style={{border:'0px'}} />}
+                <h4 style={{color: '#58beff'}}>{text}</h4>
+                {showInput && <input type="text" className={'input-glass'} style={{border: '0px'}}/>}
                 <div
                     style={{
                         display: 'flex',
@@ -37,7 +37,7 @@ const Popup = ({ showInput=true, text='test', onClose, onContinue }) => {
                         marginTop: '20px',
                     }}
                 >
-                    <div className={'button-glass'} onClick={onClose} style={{marginRight:'10px'}}>Cancel</div>
+                    <div className={'button-glass'} onClick={onClose} style={{marginRight: '10px'}}>Cancel</div>
                     <div className={'button-glass'} onClick={onContinue}>Continue</div>
                 </div>
             </div>
