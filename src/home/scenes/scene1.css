@@ -1,0 +1,71 @@
+.guy-1 {
+    animation: jump-forward 700ms linear forwards;
+    animation-iteration-count: 5;
+    transform-origin: bottom;
+}
+
+.parachute-1 {
+    opacity: 0;
+}
+.cap-1{
+    animation: appear 5s linear forwards;
+}
+.book-1{
+    animation: slide-in 5s linear forwards;
+}
+@keyframes jump-forward {
+    0% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(-10%) rotate(12deg);
+    }
+    40% {
+        transform: translateY(-10%) rotate(0deg);
+    }
+    70% {
+        transform: translateY(-10%) rotate(-12deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+@keyframes slide-in {
+    0% {
+        transform: translateX(825px);
+        opacity: 0;
+    }
+    5%{
+        transform: translateX(800px);
+        opacity: 1;
+    }
+    70%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+    80% {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+@keyframes appear {
+    0%{
+        transform: scale(0);
+        opacity: 0;
+    }
+    80%{
+        transform: scale(0);
+        opacity: 0;
+    }
+    98%{
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}

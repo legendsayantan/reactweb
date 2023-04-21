@@ -24,8 +24,8 @@ const TypingAnimation = ({
     return (
         <div>
             {bold
-                ? <h3 style={{textAlign: "center"}}>{displayText}</h3>
-                : <span style={{textAlign: "center"}}>{displayText}</span>
+                ? <h3 style={{textAlign: "center",lineHeight:1.5}}>{displayText}</h3>
+                : <p style={{textAlign: "center",lineHeight:1.5}}>{displayText}</p>
             }
         </div>
     );

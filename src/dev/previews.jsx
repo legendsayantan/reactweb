@@ -19,6 +19,11 @@ import TypingAnimation from "../components/TypingAnimation";
 import MarkdownPage from "../pages/MarkdownPage";
 import AppItem from "../components/AppItem";
 import Popup from "../components/Popup";
+import GameStage from "../home/GameStage";
+import Cap from "../home/res/Cap";
+import Books from "../home/res/Books";
+import Pc from "../home/res/Pc";
+import FallingPcs from "../home/res/FallingPcs";
 
 const ComponentPreviews = () => {
     return (
@@ -76,6 +81,21 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/Popup">
                 <Popup/>
+            </ComponentPreview>
+            <ComponentPreview path="/GameStage">
+                <GameStage bg={true}/>
+            </ComponentPreview>
+            <ComponentPreview path="/Cap">
+                <Cap/>
+            </ComponentPreview>
+            <ComponentPreview path="/Books">
+                <Books/>
+            </ComponentPreview>
+            <ComponentPreview path="/Pc">
+                <Pc/>
+            </ComponentPreview>
+            <ComponentPreview path="/FallingPcs">
+                <FallingPcs/>
             </ComponentPreview>
         </Previews>
     )

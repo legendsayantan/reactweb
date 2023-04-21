@@ -2,9 +2,9 @@ import TypingAnimation from "../components/TypingAnimation";
 import React, {useCallback, useEffect, useState} from "react";
 import "./Homepage.css"
 import {getAppStates} from "../App";
-import Game from "./Game";
+import GameStage from "./GameStage";
 
-function Homepage({shown, switchState}) {
+function Homepage({shown, switchState,setPlatformSpeed}) {
     const [gamePlay, setGamePlay] = useState(-1);
     const [gameRunning, setGameRunning] = useState(false)
     const [blink, setBlink] = useState(false)
@@ -24,8 +24,8 @@ function Homepage({shown, switchState}) {
                 break;
             case "s":
             case "S":
-                if(gamePlay!==1)switchState(getAppStates().software);
-                else setGameRunning(true)
+                if(gamePlay===1)setGameRunning(true)
+                else switchState(getAppStates().software)
                 break;
             case "g":
             case "G":
@@ -42,7 +42,7 @@ function Homepage({shown, switchState}) {
     return (
         <div style={{width: window.innerWidth}} className={`home ${shown ? '' : 'hide'}`}>
             {gameRunning
-                ? <Game />
+                ? <GameStage setPlatformSpeed={setPlatformSpeed}/>
                 : <>
                     <div style={{
                         display: "flex",
@@ -68,7 +68,6 @@ function Homepage({shown, switchState}) {
                         justifyContent: "center",
                         fontSize: "13px",
                         color: '#FF9506',
-                        marginTop: '15px'
                     }}>
                         <div style={{cursor: "pointer"}} onClick={() => {
                             setGamePlay(1);
@@ -82,7 +81,7 @@ function Homepage({shown, switchState}) {
                             <TypingAnimation text={"[N]o"} delay={6500} bold={false}/>
                         </div>
                     </div>
-                    <div style={{height: '50vh'}}>
+                    <div style={{height: '30vh'}}>
                         {gamePlay === 0 ? <div>
                             <div style={{
                                 display: "flex",
@@ -129,8 +128,8 @@ function Homepage({shown, switchState}) {
                                     fontSize: "13px",
                                     color: '#FF9506',
                                     cursor: "pointer",
-                                    marginTop: '50px'
-                                }} className={blink ? 'blink' : ''}
+                                    marginTop: '25px'
+                                }} className={blink ? 'blink-infinite' : ''}
                                      onClick={() => {
                                          setGameRunning(true)
                                      }}>

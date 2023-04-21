@@ -1,0 +1,54 @@
+
+.guy-0{
+    animation: guy-drop 5s linear forwards;
+    transform-origin: top;
+}
+.parachute-0{
+    animation: parachute-drop 5s linear forwards;
+    transform-origin: bottom;
+}
+.cap-0{
+    opacity: 0;
+}
+.book-0{
+    opacity: 0;
+}
+@keyframes guy-drop {
+    0%{
+        transform: translateY(-100vh);
+    }
+    30%{
+        transform: translateY(-70vh) rotate(12deg);
+    }
+    50%{
+        transform: translateY(-50vh) rotate(0deg);
+    }
+    70%{
+        transform: translateY(-30vh) rotate(-12deg);
+    }
+    100%{
+        transform: translateY(0) rotate(0deg);
+    }
+}
+@keyframes parachute-drop {
+    0%{
+        transform: translateY(-100vh);
+    }
+    30%{
+        transform: translateY(-70vh) rotate(12deg);
+    }
+    50%{
+        transform: translateY(-50vh) rotate(0deg);
+    }
+    70%{
+        transform: translateY(-30vh) rotate(-12deg);
+    }
+    90%{
+        transform: translateY(-10vh) rotate(-4deg);
+        opacity: 0.75;
+    }
+    100%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+}

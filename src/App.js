@@ -11,7 +11,6 @@ import Homepage from "./home/Homepage";
 import MarkdownPage from "./pages/MarkdownPage";
 import Debloat from "./pages/Debloat";
 import Themepatcher from "./pages/Themepatcher";
-import software from "./components/Software";
 import Xcrypt from "./pages/Xcrypt";
 import Screenery from "./pages/Screenery";
 import Autoreact from "./pages/Autoreact";
@@ -90,6 +89,8 @@ function App() {
                     {(currentAppState === AppStates.home || previousAppState === AppStates.home) &&
                         <Homepage shown={currentAppState === previousAppState} switchState={(state) => {
                             setAppState(state);
+                        }} setPlatformSpeed={(i)=>{
+                            setPlatformSpeed(i)
                         }}/>
                     }
                 </div>

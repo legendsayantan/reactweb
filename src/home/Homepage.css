@@ -19,11 +19,11 @@
     }
 }
 
-.blink {
-    animation: blink 1s infinite;
+.blink-infinite {
+    animation: blink-inf 1s infinite;
 }
 
-@keyframes blink {
+@keyframes blink-inf {
     0% {
         opacity: 1;
     }

@@ -27,25 +27,18 @@ class SquareGuy extends React.Component {
     }
 
     render() {
-        var eyeStyle = {
-            position: "absolute",
-            top: 75,
-            left: 150,
-        }
         const {isBlinking} = this.state;
         return (
-            <div>
-                <div>
-                    <svg viewBox="0 0 105 105" style={{position: "absolute"}}>
-                        <rect x="1" y="1" width="100" height="100" rx="20" ry="20" fill="none" stroke="#ff9500"/>
-                    </svg>
-                    <svg viewBox="0 0 100 50" style={eyeStyle}>
-                        <ellipse id="left-eye" cx="25" cy="25" rx="7" ry="10" fill="none" stroke="#ff9500"
-                                 strokeWidth="2" className={isBlinking ? 'blink' : ''}/>
-                        <ellipse id="right-eye" cx="50" cy="25" rx="7" ry="10" fill="none" stroke="#ff9500"
-                                 strokeWidth="2" className={isBlinking ? 'blink' : ''}/>
-                    </svg>
-                </div>
+            <div style={{height:'75px',width:'75px',transform:'scale(1)',opacity:'0.7'}}>
+                <svg viewBox="0 0 51 51" style={{position: "absolute"}}>
+                    <rect x="0.5" y="0.5" width="50" height="50" rx="10" ry="10" fill="none" stroke="#ffffff" strokeWidth="2"/>
+                </svg>
+                <svg viewBox="0 0 51 51" style={{position: "absolute"}}>
+                    <ellipse id="left-eye" cx="30" cy="20" rx="3" ry="5" fill="none" stroke="#ffffff"
+                             strokeWidth="2" className={isBlinking ? 'blink' : ''}/>
+                    <ellipse id="right-eye" cx="42" cy="20" rx="3" ry="5" fill="none" stroke="#ffffff"
+                             strokeWidth="2" className={isBlinking ? 'blink' : ''}/>
+                </svg>
             </div>
         );
     }

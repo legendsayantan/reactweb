@@ -1,0 +1,25 @@
+.guy-2{
+
+}
+.parachute-2{
+    opacity: 0;
+}
+.cap-2{
+    opacity: 0;
+}
+.book-2{
+    opacity: 0;
+}
+@keyframes go-left {
+    0%{
+        transform: translateX(0);
+    }
+    50%{
+        transform: translateX(-60%);
+        opacity: 1;
+    }
+    100%{
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+}
