@@ -24,6 +24,8 @@ import Cap from "../home/res/Cap";
 import Books from "../home/res/Books";
 import Pc from "../home/res/Pc";
 import FallingPcs from "../home/res/FallingPcs";
+import CJava from "../home/res/CJava";
+import AndroidLogo from "../home/res/AndroidLogo";
 
 const ComponentPreviews = () => {
     return (
@@ -96,6 +98,12 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/FallingPcs">
                 <FallingPcs/>
+            </ComponentPreview>
+            <ComponentPreview path="/CJava">
+                <CJava/>
+            </ComponentPreview>
+            <ComponentPreview path="/AndroidLogo">
+                <AndroidLogo/>
             </ComponentPreview>
         </Previews>
     )

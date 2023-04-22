@@ -2,24 +2,19 @@ import SquareGuy from "./SquareGuy";
 import "./scenes/scene0.css";
 import "./scenes/scene1.css";
 import "./scenes/scene2.css";
+import "./scenes/scene3.css";
+import "./scenes/scene4.css";
 import Parachute from "./res/Parachute";
 import {useEffect, useState} from "react";
 import TypingAnimation from "../components/TypingAnimation";
 import Cap from "./res/Cap";
 import Books from "./res/Books";
 import FallingPcs from "./res/FallingPcs";
+import CJava from "./res/CJava";
+import AndroidLogo from "./res/AndroidLogo";
 
 function GameStage({setPlatformSpeed=(i)=>{}}) {
-    const allTexts = [
-        "On 26th April of 2004, a boy landed on Earth. He was named Sayantan.",
-        "He studied science in school and scored more than 80% in every exam.",
-        "Being a creature with logical thinking, he found his interest in computers.",
-        "Started learning computer languages like C , C++ , Java and many more...",
-        "I'm a designer.",
-        "I'm a gamer.",
-        "I'm a student.",
-        "I'm a learner.",
-    ]
+    const allTexts = require('./scenes/headings.json')
     const [level, setLevel] = useState(0);
     const [guyClass, setGuyClass] = useState('');
     const [parachuteClass, setParachuteClass] = useState('');
@@ -41,7 +36,7 @@ function GameStage({setPlatformSpeed=(i)=>{}}) {
             }
             setTimeout(()=>{
                 setShowText(true)
-            }, 5000)
+            }, 1000)
             setTimeout(()=>{
                 setPlatformSpeed(0)
             }, 3500)
@@ -98,6 +93,26 @@ function GameStage({setPlatformSpeed=(i)=>{}}) {
                 alignItems:"center",
             }}>
                 <FallingPcs toFall={level===2} toSpread={level>2}/>
+            </div>
+            <div style={{
+                position: "absolute",
+                bottom: 125,
+                opacity: 0.5,
+                left: window.innerWidth*0.3,
+                justifyContent:"center",
+                alignItems:"center",
+            }}>
+                <CJava show={level===3} />
+            </div>
+            <div style={{
+                position: "absolute",
+                bottom: 0,
+                opacity: 0.5,
+                left: window.innerWidth*0.3+75,
+                justifyContent:"center",
+                alignItems:"center",
+            }}>
+                <AndroidLogo show={level===4} />
             </div>
             {showText &&
                 <div style={{

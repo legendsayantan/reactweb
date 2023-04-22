@@ -316,7 +316,7 @@
                 let arg1 = response.getUint32(8, true);
                 let len = response.getUint32(12, true);
                 let check = response.getUint32(16, true);
-                // Android seems to have stopped providing checksums
+                // AndroidLogo seems to have stopped providing checksums
                 if (Adb.use_checksum && response.byteLength > 20) {
                     let magic = response.getUint32(20, true);
 

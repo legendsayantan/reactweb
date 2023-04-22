@@ -10,7 +10,7 @@ function FallingPcs({toFall = false,toSpread}){
                 justifyContent:"center",
                 alignItems:"center",
                 transform: `rotate(${angles[i]}deg) translate(0,0)`,
-                transition: `all 0.75s linear ${i*0.25+(i>0?3:0)}s`,
+                transition: `all 0.75s linear ${i*0.25+(i>0?4:0)}s`,
             }
         }else if(toSpread){
             return {
