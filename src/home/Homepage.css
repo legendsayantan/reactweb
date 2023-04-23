@@ -21,6 +21,7 @@
 
 .blink-infinite {
     animation: blink-inf 1s infinite;
+    animation-delay: 0.5s;
 }
 
 @keyframes blink-inf {

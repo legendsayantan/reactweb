@@ -1,5 +1,7 @@
 .guy-5{
-
+    animation: jump-forward 700ms linear forwards;
+    animation-iteration-count: 7;
+    transform-origin: bottom;
 }
 .parachute-5{
     opacity: 0;
@@ -8,5 +10,8 @@
     opacity: 0;
 }
 .book-5{
+    opacity: 0;
+}
+.git-logo-5{
     opacity: 0;
 }

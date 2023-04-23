@@ -4,11 +4,13 @@ import "./Homepage.css"
 import {getAppStates} from "../App";
 import GameStage from "./GameStage";
 
-function Homepage({shown, switchState,setPlatformSpeed}) {
+function Homepage({shown, switchState, setPlatformSpeed}) {
     const [gamePlay, setGamePlay] = useState(-1);
     const [gameRunning, setGameRunning] = useState(false)
     const [blink, setBlink] = useState(false)
+    const [pressedKey, setPressedKey] = useState('')
     const key = useCallback((event) => {
+        setPressedKey('')
         switch (event.key) {
             case "y":
             case "Y":
@@ -24,15 +26,19 @@ function Homepage({shown, switchState,setPlatformSpeed}) {
                 break;
             case "s":
             case "S":
-                if(gamePlay===1)setGameRunning(true)
+                if (gamePlay === 1) setGameRunning(true)
                 else switchState(getAppStates().software)
                 break;
             case "g":
             case "G":
                 window.open("https://github.com/legendsayantan", "_blank")
                 break;
+            default:
+                console.log(event.key);
+                setPressedKey(event.key)
+                break;
         }
-    }, []);
+    }, [gamePlay,pressedKey]);
     useEffect(() => {
         document.addEventListener("keydown", key, false);
         return () => {
@@ -42,7 +48,12 @@ function Homepage({shown, switchState,setPlatformSpeed}) {
     return (
         <div style={{width: window.innerWidth}} className={`home ${shown ? '' : 'hide'}`}>
             {gameRunning
-                ? <GameStage setPlatformSpeed={setPlatformSpeed}/>
+                ? <GameStage setPlatformSpeed={setPlatformSpeed} onQuit={() => {
+                    setGameRunning(false)
+                    setGamePlay(-1)
+                }} keypress={pressedKey} resetKey={()=>{
+                    setPressedKey('')
+                }}/>
                 : <>
                     <div style={{
                         display: "flex",

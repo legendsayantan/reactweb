@@ -13,6 +13,9 @@
 .book-3{
     opacity: 0;
 }
+.git-logo-3{
+    opacity: 0;
+}
 @keyframes high-jump {
     0% {
         transform: rotate(0deg);

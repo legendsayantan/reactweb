@@ -5,7 +5,7 @@ import Homelink from "../header/Homelink";
 import Menu from "../header/Menu";
 import Header from "../header/Header";
 import Bubble from "../components/Bubble";
-import SquareGuy from "../home/SquareGuy";
+import SquareGuy from "../home/res/SquareGuy";
 import Platform from "../components/Platform";
 import App from "../App";
 import StarField from "../components/StarField";
@@ -26,6 +26,9 @@ import Pc from "../home/res/Pc";
 import FallingPcs from "../home/res/FallingPcs";
 import CJava from "../home/res/CJava";
 import AndroidLogo from "../home/res/AndroidLogo";
+import MoreLangs from "../home/res/MoreLangs";
+import WebFrameworks from "../home/res/WebFrameworks";
+import GitHubLogo from "../home/res/GitHubLogo";
 
 const ComponentPreviews = () => {
     return (
@@ -104,6 +107,15 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/AndroidLogo">
                 <AndroidLogo/>
+            </ComponentPreview>
+            <ComponentPreview path="/MoreLangs">
+                <MoreLangs/>
+            </ComponentPreview>
+            <ComponentPreview path="/WebFrameworks">
+                <WebFrameworks/>
+            </ComponentPreview>
+            <ComponentPreview path="/GitHubLogo">
+                <GitHubLogo/>
             </ComponentPreview>
         </Previews>
     )

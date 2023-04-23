@@ -9,9 +9,13 @@
 }
 .cap-1{
     animation: appear 5s linear forwards;
+    transition: opacity 1s linear 4s;
 }
 .book-1{
     animation: slide-in 5s linear forwards;
+}
+.git-logo-1{
+    opacity: 0;
 }
 @keyframes jump-forward {
     0% {

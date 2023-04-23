@@ -13,6 +13,9 @@
 .book-0{
     opacity: 0;
 }
+.git-logo-0{
+    opacity: 0;
+}
 @keyframes guy-drop {
     0%{
         transform: translateY(-100vh);

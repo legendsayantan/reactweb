@@ -5,6 +5,8 @@ function AndroidLogo({show = true}){
             bottom: 0,
             height: "100px",
             width: "100px",
+            opacity: show ? 1 : 0,
+            transition: "opacity 0.5s linear",
         }}>{show &&
             <img style={{
                 position: "absolute",
