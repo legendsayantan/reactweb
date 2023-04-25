@@ -21,6 +21,10 @@ jobs:
       - name: Build the project
         run: npm run build -- --max-warnings=0
 
+      # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+      - name: Add .nojekyll file
+        run: touch build/.nojekyll
+
       - name: Push to is-a.dev repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
