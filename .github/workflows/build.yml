@@ -13,13 +13,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set environment variable
-        run: export CI=false
+        run: CI=''
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the project
-        run: npm run build
+        run: npm run build -- --max-warnings=0
 
       - name: Push to is-a.dev repository
         uses: cpina/github-action-push-to-another-repository@main
