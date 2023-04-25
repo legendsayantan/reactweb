@@ -1,7 +1,8 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import Menu from "./Menu";
 import Bubble from "../components/Bubble";
 import "./Header.css"
+import app, {getAppStates} from "../App";
 import React from "react";
 
 const PopupMenus = ({mobile, articles, software}) => {

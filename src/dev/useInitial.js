@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
 export const useInitial = () => {
-    const [status] = useState({
+    const [status, setStatus] = useState({
         loading: false,
         error: false
     })

@@ -19,7 +19,7 @@ const TypingAnimation = ({
             }, speed);
             return () => clearInterval(intervalId);
         }, delay)
-    }, [text, speed, delay, onComplete]);
+    }, [text, speed]);
 
     return (
         <div>

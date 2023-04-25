@@ -1,9 +1,9 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Bubble.css';
 
 const Bubble = ({text, clickHandler, position, popped}) => {
     // Define the style object for the bubble
-    const ref = useRef();
+    var ref = useRef()
     const bubbleStyle = {
         transform: `translate(${position.X}px, ${position.Y}px) rotate(${position.Rotate}deg)`,
         borderRadius: '50%',
@@ -17,13 +17,13 @@ const Bubble = ({text, clickHandler, position, popped}) => {
         alignItems: 'center',
         marginRight: '25px',
     };
-    const textStyle = {
+    var textStyle = {
         textAlign: 'center',
         color: "white",
         fontFamily: 'cursive',
         fontSize: '10px',
         transform: `rotate(${-1 * position.Rotate}deg)`,
-    };
+    }
 
     return (
         <div ref={ref} onClick={clickHandler} className={popped ? 'pop' : 'spawn'}>

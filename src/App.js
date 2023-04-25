@@ -16,7 +16,7 @@ import Screenery from "./pages/Screenery";
 import Autoreact from "./pages/Autoreact";
 import Webmimic from "./pages/Webmimic";
 
-const AppStates = {
+var AppStates = {
     home: 0,
     articles: 1,
     software: 2,
@@ -36,13 +36,13 @@ function App() {
             window.removeEventListener('resize', handleWindowSizeChange);
         }
     }, []);
-    const footerStyle = {
+    var footerStyle = {
         position: "absolute",
         bottom: 0,
         width: "100%",
         height: "100px",
         overflow: "hidden"
-    };
+    }
     //states
     const [x, setX] = React.useState(0)
     const [y, setY] = React.useState(0)

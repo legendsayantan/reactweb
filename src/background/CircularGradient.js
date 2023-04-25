@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import './CircularGradient.css';
 
 const CircularGradient = (props) => {
