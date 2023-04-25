@@ -5,7 +5,7 @@ import CircularGradient from "./background/CircularGradient";
 import Platform from "./components/Platform";
 import StarField from "./components/StarField";
 import AllSoftwarePC from "./components/AllSoftwarePC";
-import AllArticlesPC from "./components/AllArticlesPC";
+import AllArticles from "./components/AllArticles";
 import TypingAnimation from "./components/TypingAnimation";
 import Homepage from "./home/Homepage";
 import MarkdownPage from "./pages/MarkdownPage";
@@ -141,9 +141,9 @@ function App() {
                     }
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
-                    {(currentAppState === AppStates.articles || previousAppState === AppStates.articles) && !portrait &&
-                        <AllArticlesPC shown={currentAppState === previousAppState}
-                                       loadArticle={(article) => {
+                    {(currentAppState === AppStates.articles || previousAppState === AppStates.articles) &&
+                        <AllArticles shown={currentAppState === previousAppState} mobile={portrait}
+                                     loadArticle={(article) => {
                                            if (article.isEmpty) return;
                                            setCustomPage(0)
                                            setAppState(AppStates.customPage);
