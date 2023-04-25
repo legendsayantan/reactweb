@@ -15,15 +15,15 @@
 }
 @keyframes drop-on-head {
     0%{
-        transform: translateY(-300%);
+        transform: translateY(-300%) rotate(0deg);
         opacity: 0;
     }
     25%{
-        transform: translateY(-200%);
+        transform: translateY(-200%) rotate(15deg);
         opacity: 1;
     }
     50%{
-        transform: translateY(-100%) rotate(0deg);
+        transform: translateY(-100%) rotate(30deg);
         opacity: 1;
     }
     60%{
@@ -40,6 +40,10 @@
     }
     90%{
         transform: translateX(200%) rotate(330deg);
+        opacity: 1;
+    }
+    99%{
+        transform: translateX(252%) rotate(362deg);
         opacity: 1;
     }
     100%{

@@ -5,7 +5,7 @@ import './Pages.css';
 function MarkdownPage({shown, file = 'how-to-create-pattern.md'}) {
     const [post, setPost] = useState('');
     useEffect(() => {
-        import(`./markdown/${file}`)
+        import(`./markdown/${file}.md`)
             .then(res => {
                 fetch(res.default)
                     .then(res => res.text())

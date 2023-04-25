@@ -2,7 +2,7 @@
   {
     "name": "Online Android Debloater",
     "desc": "Uninstall useless apps from your android device, hassle-free.",
-    "path": "../pages/debloat",
+    "path": "/debloat",
     "imageurl": "",
     "scale": 1
   },

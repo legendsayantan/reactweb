@@ -24,6 +24,7 @@ var AppStates = {
 };
 
 function App() {
+
     const [portrait, setPortrait] = useState(window.innerWidth < window.innerHeight);
     const [platformSpeed, setPlatformSpeed] = useState(0);
     const handleWindowSizeChange = () => {
@@ -50,6 +51,28 @@ function App() {
     const [previousAppState, setPreviousAppState] = React.useState(AppStates.home)
     const [customPage, setCustomPage] = React.useState(0)
     const [customPageFile, setCustomPageFile] = React.useState('');
+    useEffect(()=>{
+        const pathname = window.location.pathname
+        if(pathname.startsWith("/articles")){
+            setAppState(AppStates.articles)
+        }else if(pathname.startsWith("/software")){
+            setAppState(AppStates.software)
+        }else if(pathname!=='/'){
+            setAppState(AppStates.customPage)
+            if(pathname.startsWith("/article/")){
+                setCustomPage(0)
+                setCustomPageFile(pathname.replace("/article/",""))
+            }else {
+                const softx = require("./data/software.json");
+                for (let i = 0; i<softx.length; i++){
+                    if(softx[i].path===pathname){
+                        setCustomPage(i)
+                        break
+                    }
+                }
+            }
+        }
+    },[])
     const setAppState = (state) => {
         setCurrentAppState(state)
         setTimeout(() => {
@@ -58,6 +81,27 @@ function App() {
     }
     useEffect(() => {
         console.log(currentAppState, previousAppState);
+        var path;
+        var name ;
+        switch (currentAppState){
+            case AppStates.software:
+                path = "/software"
+                name = "Software"
+                break
+            case AppStates.articles:
+                path = "/articles"
+                name = "Articles"
+                break
+            case AppStates.customPage:
+                path = customPage===0?'/article/'+customPageFile:require("./data/software.json")[customPage-1].path
+                name = customPage===0?customPageFile:require("./data/software.json")[customPage-1].name
+                break
+            default:
+                path = "/"
+                name = "LegendSayantan"
+                break
+        }
+        window.history.replaceState(null, name, path)
     }, [currentAppState, previousAppState]);
     const mouseMoveCallback = (event) => {
         setX(event.clientX / window.innerWidth);
