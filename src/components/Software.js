@@ -6,7 +6,7 @@ const Software = ({name, desc, imageUrl, scale, onClickHandler,mobile}) => {
     return (
         <div className="software-card" onClick={onClickHandler} style={{
             width: mobile?'85vw':'250px',
-            height: mobile?'40px':'100px'
+            height: mobile?'50px':'100px'
         }}>
             <div className="software-card-flex">
                 <img src={imageUrl} className="software-card_image"

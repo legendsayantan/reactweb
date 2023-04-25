@@ -21,6 +21,7 @@ import GitHubLogo from "./res/GitHubLogo";
 
 function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey,mobile}) {
     const allTexts = require('./scenes/headings.json')
+    const [mainOpacity,setMainOpacity] = useState(0);
     const [level, setLevel] = useState(0);
     const [guyClass, setGuyClass] = useState('');
     const [parachuteClass, setParachuteClass] = useState('');
@@ -30,6 +31,13 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey,mobile}) {
     const [text, setText] = useState(allTexts[0]);
     const [showText, setShowText] = useState(false);
     const [showToSkip, setShowToSkip] = useState(false);
+    useEffect(
+        ()=>{
+            setTimeout(()=>{
+                setMainOpacity(1)
+            },500)
+        },[]
+    )
     useEffect(
         () => {
             setGuyClass('guy-'+level)
@@ -70,7 +78,8 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey,mobile}) {
             bottom:'0',
             width: "100%",
             height: window.innerHeight-150,
-            overflow:'visible'
+            overflow:'visible',
+            opacity: mainOpacity
         }}>
             <div style={{
                 position: "absolute",
@@ -184,7 +193,7 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey,mobile}) {
             {showToSkip &&
                 <div style={{
                     position: "absolute",
-                    bottom: mobile?'50px':0,
+                    bottom: mobile?'75px':0,
                     right: '10vw',
                     width: '50px',
                     justifyContent:"left",
