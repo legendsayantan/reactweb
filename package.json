@@ -37,6 +37,10 @@
       "last 1 safari version"
     ]
   },
+  "eslintIgnore": [
+    "build/",
+    "node_modules/"
+  ],
   "devDependencies": {
     "raw.macro": "^0.7.0"
   }
