@@ -123,5 +123,5 @@ again.
 So lines are the controlling factor to writing characters.
 Everytime we write, **we put the characters inside a line**.
 In programming, the **outer loop is the deciding factor for the execution of inner loop**.
-This is why switching of line is always facilitated by the outer loop and all the character writing is done in the *
-*inside of it**, via inner loops.  
+This is why switching of line is always facilitated by the outer loop and all the character writing is done in the 
+**inside of it**, via inner loops.  

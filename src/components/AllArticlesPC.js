@@ -2,10 +2,9 @@ import Article from "./Article";
 import PointedStar from "./PointedStar";
 import React from "react";
 import "./SectionsForPC.css"
-import allData from "../data/articles.json";
 
 function AllArticlesPC({shown, loadArticle}) {
-    var flexStyle = {
+    const flexStyle = {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -13,8 +12,8 @@ function AllArticlesPC({shown, loadArticle}) {
         width: '100%',
         height: 'auto',
         overflow: 'visible',
-    }
-    const getArticleStyle = (x, y) => {
+    };
+    const getArticleStyle = () => {
         return {
             margin: '0 15px',
             transform: 'translateY(0)',
