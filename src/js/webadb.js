@@ -1,3 +1,4 @@
+/* eslint-disable */
 // SPDX-License-Identifier: MIT
 
 (function (root, factory) {

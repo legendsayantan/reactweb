@@ -1,4 +1,5 @@
-﻿import Adb from './webadb'
+﻿/* eslint-disable */
+import Adb from './webadb'
 
 var adbInstance = null, device = null, webusb = null;
 var connectBtn, nameView, container;
