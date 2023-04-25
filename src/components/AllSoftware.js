@@ -11,18 +11,16 @@ function AllSoftware({shown, loadCustomPage,mobile}) {
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
-            height: mobile?'50px':'125px',
-            pointerEvents: 'inherit',
-            marginTop: mobile?index*60:'auto'
+            height: mobile?'auto':'125px',
+            pointerEvents: 'inherit'
         }
     }
     let allData = require('../data/software.json');
     return (
         <div style={{
             width: window.innerWidth,
-            justifyContent: "center",
             alignItems: "center",
-            margin: mobile?"0px 0px 100px 0px":"auto",
+            margin: mobile?"0px 0px 10px 0px":"auto",
         }}>
             {mobile ||
                 <div className={`${shown ? 'visiblecard' : 'hiddencard'}`} style={{transitionDelay: shown ? '0.6s' : '0s'}}>
