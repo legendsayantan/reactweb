@@ -1,7 +1,7 @@
 import Article from "./Article";
 import PointedStar from "./PointedStar";
 import React from "react";
-import "./SectionsForPC.css"
+import "./Sections.css"
 
 function AllArticles({shown, loadArticle,mobile}) {
     const flexStyle = {

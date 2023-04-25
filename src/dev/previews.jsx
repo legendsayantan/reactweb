@@ -12,7 +12,7 @@ import StarField from "../components/StarField";
 import Software from "../components/Software";
 import Debloat from "../pages/Debloat";
 import PointedStar from "../components/PointedStar";
-import AllSoftwarePC from "../components/AllSoftwarePC";
+import AllSoftware from "../components/AllSoftware";
 import Article from "../components/Article";
 import AllArticles from "../components/AllArticles";
 import TypingAnimation from "../components/TypingAnimation";
@@ -67,7 +67,7 @@ const ComponentPreviews = () => {
                 <PointedStar/>
             </ComponentPreview>
             <ComponentPreview path="/AllSoftwarePC">
-                <AllSoftwarePC/>
+                <AllSoftware/>
             </ComponentPreview>
             <ComponentPreview path="/Article">
                 <Article/>

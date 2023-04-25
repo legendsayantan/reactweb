@@ -1,18 +1,20 @@
 import Software from "./Software";
 import React from "react";
-import "./SectionsForPC.css"
+import "./Sections.css"
 import PointedStar from "./PointedStar";
-import {getCustomPages} from "../App";
 
-function AllSoftwarePC({shown, loadCustomPage}) {
-    var flexStyle = {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '125px',
-        pointerEvents: 'inherit',
+function AllSoftware({shown, loadCustomPage,mobile}) {
+    const flexStyle = (index)=>{
+        return{
+            display: 'flex',
+            flexDirection: mobile?'column':'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: mobile?'50px':'125px',
+            pointerEvents: 'inherit',
+            marginTop: mobile?index*56:'auto'
+        }
     }
     let allData = require('../data/software.json');
     return (
@@ -20,20 +22,21 @@ function AllSoftwarePC({shown, loadCustomPage}) {
             width: window.innerWidth,
             justifyContent: "center",
             alignItems: "center",
-            alignContent: "center",
-            margin: "auto",
+            margin: mobile?"0px 0px 100px 0px":"auto",
         }}>
-            <div className={`${shown ? 'visiblecard' : 'hiddencard'}`} style={{transitionDelay: shown ? '0.6s' : '0s'}}>
-                <h3 className={'heading'}>Open Source Software & Tools</h3>
-            </div>
+            {mobile ||
+                <div className={`${shown ? 'visiblecard' : 'hiddencard'}`} style={{transitionDelay: shown ? '0.6s' : '0s'}}>
+                    <h3 className={'heading'}>Open Source Software & Tools</h3>
+                </div>
+            }
             <div className={`${shown ? 'visiblecard' : 'hiddencard'}`}
                  style={{transform: 'translateY(20px)', zIndex: 5, transitionDelay: shown ? '0.4s' : '0s'}}>
                 <PointedStar/>
             </div>
-            <div style={flexStyle}>
+            <div style={flexStyle(0)}>
                 <div className={`${shown ? 'visiblecard' : 'hiddencard'}`}
                      style={{transitionDelay: shown ? '0.4s' : '0s'}}>
-                    <Software
+                    <Software mobile={mobile}
                         name={allData[0].name}
                         desc={allData[0].desc}
                         imageUrl={allData[0].imageurl}
@@ -44,10 +47,10 @@ function AllSoftwarePC({shown, loadCustomPage}) {
                     />
                 </div>
             </div>
-            <div style={flexStyle}>
+            <div style={flexStyle(1)}>
                 <div className={`${shown ? 'visiblecard' : 'hiddencard'}`}
                      style={{transitionDelay: shown ? '0.2s' : '0s'}}>
-                    <Software
+                    <Software mobile={mobile}
                         name={allData[1].name}
                         desc={allData[1].desc}
                         imageUrl={allData[1].imageurl}
@@ -59,7 +62,7 @@ function AllSoftwarePC({shown, loadCustomPage}) {
                 </div>
                 <div className={`${shown ? 'visiblecard' : 'hiddencard'}`}
                      style={{transitionDelay: shown ? '0.3s' : '0.1s'}}>
-                    <Software
+                    <Software mobile={mobile}
                         name={allData[2].name}
                         desc={allData[2].desc}
                         imageUrl={allData[2].imageurl}
@@ -70,10 +73,10 @@ function AllSoftwarePC({shown, loadCustomPage}) {
                     />
                 </div>
             </div>
-            <div style={flexStyle}>
+            <div style={flexStyle(2)}>
                 <div className={`${shown ? 'visiblecard' : 'hiddencard'}`}
                      style={{transitionDelay: shown ? '0s' : '0.4s'}}>
-                    <Software
+                    <Software mobile={mobile}
                         name={allData[3].name}
                         desc={allData[3].desc}
                         imageUrl={allData[3].imageurl}
@@ -85,7 +88,7 @@ function AllSoftwarePC({shown, loadCustomPage}) {
                 </div>
                 <div className={`${shown ? 'visiblecard' : 'hiddencard'}`}
                      style={{transitionDelay: shown ? '0.1s' : '0.3s'}}>
-                    <Software
+                    <Software mobile={mobile}
                         name={allData[4].name}
                         desc={allData[4].desc}
                         imageUrl={allData[4].imageurl}
@@ -97,7 +100,7 @@ function AllSoftwarePC({shown, loadCustomPage}) {
                 </div>
                 <div className={`${shown ? 'visiblecard' : 'hiddencard'}`}
                      style={{transitionDelay: shown ? '0.2s' : '0.2s'}}>
-                    <Software
+                    <Software mobile={mobile}
                         name={allData[5].name}
                         desc={allData[5].desc}
                         imageUrl={allData[5].imageurl}
@@ -112,4 +115,4 @@ function AllSoftwarePC({shown, loadCustomPage}) {
     );
 }
 
-export default AllSoftwarePC;
+export default AllSoftware;

@@ -1,9 +1,6 @@
 .software-card {
-    position: relative;
     align-items: center;
     justify-content: center;
-    width: 250px;
-    height: 100px;
     padding: 10px;
     margin-right: 5px;
     border-radius: 10px;

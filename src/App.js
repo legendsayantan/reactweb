@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import CircularGradient from "./background/CircularGradient";
 import Platform from "./components/Platform";
 import StarField from "./components/StarField";
-import AllSoftwarePC from "./components/AllSoftwarePC";
+import AllSoftware from "./components/AllSoftware";
 import AllArticles from "./components/AllArticles";
 import TypingAnimation from "./components/TypingAnimation";
 import Homepage from "./home/Homepage";
@@ -51,30 +51,30 @@ function App() {
     const [previousAppState, setPreviousAppState] = React.useState(AppStates.home)
     const [customPage, setCustomPage] = React.useState(0)
     const [customPageFile, setCustomPageFile] = React.useState('');
-    useEffect(()=>{
+    useEffect(() => {
         const pathname = window.location.pathname
-        if(pathname.startsWith("/articles")){
+        if (pathname.startsWith("/articles")) {
             setAppState(AppStates.articles)
-        }else if(pathname.startsWith("/software")){
+        } else if (pathname.startsWith("/software")) {
             setAppState(AppStates.software)
-        }else if(pathname!=='/'){
-            if(pathname.startsWith("/article/")){
+        } else if (pathname !== '/') {
+            if (pathname.startsWith("/article/")) {
                 console.log("art")
                 setCustomPage(0)
-                setCustomPageFile(pathname.replace("/article/",""))
-            }else {
+                setCustomPageFile(pathname.replace("/article/", ""))
+            } else {
                 console.log("non")
                 const softx = require("./data/software.json");
-                for (let i = 0; i<softx.length; i++){
-                    if(softx[i].path===pathname){
-                        setCustomPage(i+1)
+                for (let i = 0; i < softx.length; i++) {
+                    if (softx[i].path === pathname) {
+                        setCustomPage(i + 1)
                         break
                     }
                 }
             }
             setAppState(AppStates.customPage)
         }
-    },[])
+    }, [])
     const setAppState = (state) => {
         setCurrentAppState(state)
         setTimeout(() => {
@@ -84,8 +84,8 @@ function App() {
     useEffect(() => {
         console.log(currentAppState, previousAppState);
         var path;
-        var name ;
-        switch (currentAppState){
+        var name;
+        switch (currentAppState) {
             case AppStates.software:
                 path = "/software"
                 name = "Software"
@@ -95,8 +95,8 @@ function App() {
                 name = "Articles"
                 break
             case AppStates.customPage:
-                path = customPage===0?'/article/'+customPageFile:require("./data/software.json")[customPage-1].path
-                name = customPage===0?customPageFile:require("./data/software.json")[customPage-1].name
+                path = customPage === 0 ? '/article/' + customPageFile : require("./data/software.json")[customPage - 1].path
+                name = customPage === 0 ? customPageFile : require("./data/software.json")[customPage - 1].name
                 break
             default:
                 path = "/"
@@ -133,9 +133,10 @@ function App() {
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
                     {(currentAppState === AppStates.home || previousAppState === AppStates.home) &&
-                        <Homepage portrait={portrait} shown={currentAppState === previousAppState} switchState={(state) => {
-                            setAppState(state);
-                        }} setPlatformSpeed={(i)=>{
+                        <Homepage portrait={portrait} shown={currentAppState === previousAppState}
+                                  switchState={(state) => {
+                                      setAppState(state);
+                                  }} setPlatformSpeed={(i) => {
                             setPlatformSpeed(i)
                         }}/>
                     }
@@ -144,20 +145,20 @@ function App() {
                     {(currentAppState === AppStates.articles || previousAppState === AppStates.articles) &&
                         <AllArticles shown={currentAppState === previousAppState} mobile={portrait}
                                      loadArticle={(article) => {
-                                           if (article.isEmpty) return;
-                                           setCustomPage(0)
-                                           setAppState(AppStates.customPage);
-                                           setCustomPageFile(article);
-                                       }}/>
+                                         if (article.isEmpty) return;
+                                         setCustomPage(0)
+                                         setAppState(AppStates.customPage);
+                                         setCustomPageFile(article);
+                                     }}/>
                     }
                 </div>
                 <div style={{position: "absolute", bottom: "100px"}}>
-                    {(currentAppState === AppStates.software || previousAppState === AppStates.software) && !portrait &&
-                        <AllSoftwarePC shown={currentAppState === previousAppState}
-                                       loadCustomPage={(page) => {
+                    {(currentAppState === AppStates.software || previousAppState === AppStates.software) &&
+                        <AllSoftware shown={currentAppState === previousAppState}
+                                     loadCustomPage={(page) => {
                                            setCustomPage(page)
                                            setAppState(AppStates.customPage)
-                                       }}
+                                       }} mobile={portrait}
                         />
                     }
                 </div>
@@ -190,13 +191,17 @@ function App() {
                         (currentAppState !== AppStates.home && previousAppState === AppStates.home) ? 5.5 : platformSpeed
                     }/>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "center", color: '#0154b4',}}>
-                        {portrait &&
-                            <TypingAnimation text={
-                                (currentAppState === AppStates.articles ? "Latest Articles" :
-                                        (currentAppState === AppStates.software ? "Open Source Software and Tools" :
-                                            "")
-                                )
-                            }/>
+                        {portrait ?
+                            <>
+                                {currentAppState === AppStates.articles &&
+                                    <TypingAnimation text={`Latest Articles`
+                                    }/>
+                                }
+                                {currentAppState === AppStates.software &&
+                                    <TypingAnimation text={`Open Source software and tools`
+                                    }/>
+                                }
+                            </> : <></>
                         }
                     </div>
                 </div>
