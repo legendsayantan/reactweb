@@ -1,13 +1,13 @@
-﻿import Adb from './webadb'
+﻿/* eslint-disable */
+import Adb from './webadb'
 
-var adbInstance = null, device = null, webusb = null;
-var connectBtn, nameView, container;
-var AdbModes = {
+let adbInstance = null, device = null, webusb = null;
+const AdbModes = {
     connect: 0,
     loadApps: 1,
     execute: 2,
     disconnect: 3,
-}
+};
 export let getAdbModes = () => {
     return AdbModes
 }

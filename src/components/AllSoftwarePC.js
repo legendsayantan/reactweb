@@ -2,10 +2,9 @@ import Software from "./Software";
 import React from "react";
 import "./SectionsForPC.css"
 import PointedStar from "./PointedStar";
-import {getCustomPages} from "../App";
 
 function AllSoftwarePC({shown, loadCustomPage}) {
-    var flexStyle = {
+    const flexStyle = {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -13,7 +12,7 @@ function AllSoftwarePC({shown, loadCustomPage}) {
         width: '100%',
         height: '125px',
         pointerEvents: 'inherit',
-    }
+    };
     let allData = require('../data/software.json');
     return (
         <div style={{

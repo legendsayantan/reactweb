@@ -7,7 +7,7 @@ const Software = ({name, desc, imageUrl, scale, onClickHandler}) => {
         <div className="software-card" onClick={onClickHandler}>
             <div className="software-card-flex">
                 <img src={imageUrl} className="software-card_image"
-                     style={{display: `${showimage ? "block" : "none"}`, transform: `scale(${scale})`}}/>
+                     style={{display: `${showimage ? "block" : "none"}`, transform: `scale(${scale})`}} alt={""}/>
                 <h4 style={{
                     height: "25px",
                     margin: "10px",

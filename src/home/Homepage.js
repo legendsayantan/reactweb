@@ -38,7 +38,7 @@ function Homepage({shown, switchState, setPlatformSpeed}) {
                 setPressedKey(event.key)
                 break;
         }
-    }, [gamePlay,pressedKey]);
+    }, [gamePlay, switchState]);
     useEffect(() => {
         document.addEventListener("keydown", key, false);
         return () => {

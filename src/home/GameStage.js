@@ -18,9 +18,8 @@ import AndroidLogo from "./res/AndroidLogo";
 import MoreLangs from "./res/MoreLangs";
 import WebFrameworks from "./res/WebFrameworks";
 import GitHubLogo from "./res/GitHubLogo";
-import allTexts from "./scenes/headings.json";
 
-function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey}) {
+function GameStage({setPlatformSpeed=()=>{},onQuit,keypress,resetKey}) {
     const allTexts = require('./scenes/headings.json')
     const [level, setLevel] = useState(0);
     const [guyClass, setGuyClass] = useState('');
@@ -41,15 +40,15 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey}) {
             setText(allTexts[level])
             setShowText(false)
             if([1,5].includes(level)){
-                setPlatformSpeed(1.75)
+                setPlatformSpeed()
             }
             setTimeout(()=>{
                 setShowText(true)
             }, 1000)
             setTimeout(()=>{
-                setPlatformSpeed(0)
+                setPlatformSpeed()
             }, level===1? 3500 : 5000)
-        }, [allTexts, level]
+        }, [allTexts, level, setPlatformSpeed]
     )
     useEffect(()=> {
         resetKey()
@@ -65,7 +64,7 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey}) {
                 onQuit()
             }
         }
-    }, [keypress,showToSkip])
+    }, [allTexts.length, keypress, level, onQuit, resetKey, showToSkip])
     return (<>
         <div id={'game'} style={{
             bottom:'0',

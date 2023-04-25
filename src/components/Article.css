@@ -23,7 +23,7 @@
 .article-card_image {
     width: auto;
     height: 12vh;
-    margin: 0px 10px;
+    margin: 0 10px;
     border-radius: 15px;
     filter: invert(56%) sepia(87%) saturate(1000%) hue-rotate(352deg) brightness(103%) contrast(108%);
     -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));

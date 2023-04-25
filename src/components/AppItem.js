@@ -2,11 +2,11 @@ import React from 'react';
 import "./AppItem.css"
 
 const AppItem = ({info, onClick}) => {
-    var desc = {
+    const desc = {
         margin: 0,
         fontSize: '12px',
         fontFamily: 'Consolas'
-    }
+    };
     return (
         <div className={'appitem'} onClick={onClick}>
             <div style={{
