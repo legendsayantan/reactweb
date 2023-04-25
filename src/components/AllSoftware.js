@@ -13,7 +13,7 @@ function AllSoftware({shown, loadCustomPage,mobile}) {
             width: '100%',
             height: mobile?'50px':'125px',
             pointerEvents: 'inherit',
-            marginTop: mobile?index*56:'auto'
+            marginTop: mobile?index*60:'auto'
         }
     }
     let allData = require('../data/software.json');
