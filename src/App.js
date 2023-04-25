@@ -58,19 +58,21 @@ function App() {
         }else if(pathname.startsWith("/software")){
             setAppState(AppStates.software)
         }else if(pathname!=='/'){
-            setAppState(AppStates.customPage)
             if(pathname.startsWith("/article/")){
+                console.log("art")
                 setCustomPage(0)
                 setCustomPageFile(pathname.replace("/article/",""))
             }else {
+                console.log("non")
                 const softx = require("./data/software.json");
                 for (let i = 0; i<softx.length; i++){
                     if(softx[i].path===pathname){
-                        setCustomPage(i)
+                        setCustomPage(i+1)
                         break
                     }
                 }
             }
+            setAppState(AppStates.customPage)
         }
     },[])
     const setAppState = (state) => {
