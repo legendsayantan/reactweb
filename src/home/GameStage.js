@@ -196,7 +196,7 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey,mobile}) {
                     else onQuit()
                     setShowToSkip(false)
                 }}>
-                    <TypingAnimation text={level<allTexts.length-1?">>>":"[Q]uit"} speed={500} onComplete={()=>{
+                    <TypingAnimation text={level<allTexts.length-1?">>>":mobile?"Quit":"[Q]uit"} speed={500} onComplete={()=>{
                         }}/>
                 </div>
             }

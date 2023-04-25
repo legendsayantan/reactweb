@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import {ComponentPreview, Previews} from '@react-buddy/ide-toolbox'
 import {PaletteTree} from './palette'
 import Homelink from "../header/Homelink";
@@ -14,7 +14,7 @@ import Debloat from "../pages/Debloat";
 import PointedStar from "../components/PointedStar";
 import AllSoftwarePC from "../components/AllSoftwarePC";
 import Article from "../components/Article";
-import AllArticlesPC from "../components/AllArticlesPC";
+import AllArticles from "../components/AllArticles";
 import TypingAnimation from "../components/TypingAnimation";
 import MarkdownPage from "../pages/MarkdownPage";
 import AppItem from "../components/AppItem";
@@ -72,8 +72,8 @@ const ComponentPreviews = () => {
             <ComponentPreview path="/Article">
                 <Article/>
             </ComponentPreview>
-            <ComponentPreview path="/AllArticlesPC">
-                <AllArticlesPC/>
+            <ComponentPreview path="/AllArticles">
+                <AllArticles/>
             </ComponentPreview>
             <ComponentPreview path="/TypingAnimation">
                 <TypingAnimation/>
