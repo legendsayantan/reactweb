@@ -18,9 +18,8 @@ import AndroidLogo from "./res/AndroidLogo";
 import MoreLangs from "./res/MoreLangs";
 import WebFrameworks from "./res/WebFrameworks";
 import GitHubLogo from "./res/GitHubLogo";
-import allTexts from "./scenes/headings.json";
 
-function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey}) {
+function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey,mobile}) {
     const allTexts = require('./scenes/headings.json')
     const [level, setLevel] = useState(0);
     const [guyClass, setGuyClass] = useState('');
@@ -185,7 +184,7 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey}) {
             {showToSkip &&
                 <div style={{
                     position: "absolute",
-                    bottom: 0,
+                    bottom: mobile?'50px':0,
                     right: '10vw',
                     width: '50px',
                     justifyContent:"left",

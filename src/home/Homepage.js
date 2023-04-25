@@ -4,7 +4,7 @@ import "./Homepage.css"
 import {getAppStates} from "../App";
 import GameStage from "./GameStage";
 
-function Homepage({shown, switchState, setPlatformSpeed}) {
+function Homepage({shown, switchState, setPlatformSpeed,portrait}) {
     const [gamePlay, setGamePlay] = useState(-1);
     const [gameRunning, setGameRunning] = useState(false)
     const [blink, setBlink] = useState(false)
@@ -48,7 +48,7 @@ function Homepage({shown, switchState, setPlatformSpeed}) {
     return (
         <div style={{width: window.innerWidth}} className={`home ${shown ? '' : 'hide'}`}>
             {gameRunning
-                ? <GameStage setPlatformSpeed={setPlatformSpeed} onQuit={() => {
+                ? <GameStage mobile={portrait} setPlatformSpeed={setPlatformSpeed} onQuit={() => {
                     setGameRunning(false)
                     setGamePlay(-1)
                 }} keypress={pressedKey} resetKey={()=>{

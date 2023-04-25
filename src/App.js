@@ -133,7 +133,7 @@ function App() {
                 </div>
                 <div style={{position: "absolute", bottom: "100px", overflow: 'hidden'}}>
                     {(currentAppState === AppStates.home || previousAppState === AppStates.home) &&
-                        <Homepage shown={currentAppState === previousAppState} switchState={(state) => {
+                        <Homepage portrait={portrait} shown={currentAppState === previousAppState} switchState={(state) => {
                             setAppState(state);
                         }} setPlatformSpeed={(i)=>{
                             setPlatformSpeed(i)
