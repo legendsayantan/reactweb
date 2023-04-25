@@ -7,7 +7,7 @@ function MoreLangs({show = true}) {
             height: "75px",
             width: "75px",
             opacity: `${show ? "0" : "1"}`,
-            transform: `${show ? "translateY(0)" : "translateX(75vw)"}`,
+            transform: `${show ? "translateY(0)" : "translateX(1000px)"}`,
             transition: "transform 3.5s linear " + (i*0.25) + `s , ${show?"":"opacity 0.25s linear " + (3.25+i*0.25) + "s"}`,
         }
     }
