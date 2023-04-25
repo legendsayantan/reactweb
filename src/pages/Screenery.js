@@ -63,7 +63,7 @@ function Screenery({shown, goBack}) {
                              //download file from GitHub
                              window.open('https://github.com/legendsayantan/Screenery/blob/master/app/release/app-release.apk?raw=true')
                          }}>
-                        <img style={{height: '50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'}/>
+                        <img style={{height: '50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'} alt={''}/>
                     </div>
                 </div>
                 <div style={{

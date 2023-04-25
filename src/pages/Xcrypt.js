@@ -1,6 +1,5 @@
 import "./Pages.css"
 import React from "react";
-import doViaAdb, {getAdbModes} from "../js/adb";
 
 function Xcrypt({shown, goBack}) {
     return (
@@ -89,14 +88,14 @@ function Xcrypt({shown, goBack}) {
                              //download file from GitHub
                              window.open('https://github.com/legendsayantan/Xcrypt/blob/master/app/release/app-release.apk?raw=true')
                          }}>
-                        <img style={{height: '50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'}/>
+                        <img style={{height: '50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'} alt={''}/>
                     </div>
                     <div className="button-glass" style={{display: 'block', margin: '10px', padding: '5px 10px'}}
                          onClick={() => {
                              //open GitHub releases
                              window.open('https://github.com/legendsayantan/xcrypt-windows/releases')
                          }}>
-                        <img style={{height: '50px'}} src={'https://img.icons8.com/color/2x/windows-10.png'}/>
+                        <img style={{height: '50px'}} src={'https://img.icons8.com/color/2x/windows-10.png'} alt={''}/>
                     </div>
                 </div>
                 <div style={{

@@ -63,7 +63,7 @@ function Autoreact({shown,goBack}){
                              //download file from GitHub
                              window.open('https://github.com/legendsayantan/Autoreact/blob/master/app/release/app-release.apk?raw=true')
                          }}>
-                        <img style={{height: '50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'}/>
+                        <img style={{height: '50px'}} src={'https://img.icons8.com/fluency/2x/android-os.png'} alt={''}/>
                     </div>
                     <div className="button-glass" style={{display: 'block', margin: '10px', padding: '5px 10px'}}
                          onClick={() => {
@@ -71,7 +71,7 @@ function Autoreact({shown,goBack}){
                              window.open('https://github.com/legendsayantan/autoreact/releases')
                          }}>
                         <img style={{height: '50px'}}
-                             src={'https://www.freepnglogos.com/uploads/google-chrome-png-logo/google-chrome-logo-png-0.png'}/>
+                             src={'https://www.freepnglogos.com/uploads/google-chrome-png-logo/google-chrome-logo-png-0.png'} alt={''}/>
                     </div>
                 </div>
                 <div style={{
