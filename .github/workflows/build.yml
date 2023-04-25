@@ -12,6 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set environment variable
+        run: export CI=false
+
       - name: Install dependencies
         run: npm install
 
