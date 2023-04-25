@@ -193,7 +193,7 @@ function GameStage({setPlatformSpeed=(i)=>{},onQuit,keypress,resetKey,mobile}) {
             {showToSkip &&
                 <div style={{
                     position: "absolute",
-                    bottom: mobile?'75px':0,
+                    bottom: mobile?'125px':0,
                     right: '10vw',
                     width: '50px',
                     justifyContent:"left",
