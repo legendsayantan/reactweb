@@ -190,7 +190,7 @@ function App() {
                     <Platform speed={
                         (currentAppState !== AppStates.home && previousAppState === AppStates.home) ? 5.5 : platformSpeed
                     }/>
-                    <div style={{display: "flex", flexDirection: "row", justifyContent: "center", color: '#0154b4',}}>
+                    <div style={{display: "flex", flexDirection: "row", justifyContent: "center", color: '#0154b4',alignItems:"center"}}>
                         {portrait ?
                             <>
                                 {currentAppState === AppStates.articles &&

@@ -128,6 +128,14 @@ function Debloat({shown,goBack}) {
                                 Start
                             </p>
                         </div>
+                        <div style={{display:'flex',flexDirection:'row',justifyContent:"center",alignItems:"center",marginTop:'25px'}}>
+                            <p style={{marginRight:'25px'}}>Not working perfectly?</p>
+                            <div className="button-glass" style={{margin:'0px'}} onClick={()=>{
+                                window.open("https://legendsayantan.github.io/debloat")
+                            }}>
+                                <p style={{margin:'0px'}}>Try Legacy Site</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <div style={{display:(waitingForAdb)?'flex':'none',flexDirection:'row',justifyContent:"center",color:'#0154b4',fontWeight: "bold",margin:'0px 20px'}}>

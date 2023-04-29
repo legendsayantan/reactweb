@@ -98,6 +98,19 @@ function Themepatcher({shown, goBack}) {
                         </p>
                     </div>
                 </div>
+                <div style={{display:'flex',flexDirection:'row',justifyContent:"center",alignItems:"center",marginTop:'25px',color:"#fddcb0"}}>
+                    <p style={{marginRight:'25px'}}>Not working perfectly?</p>
+                    <div className="button-glass" style={{margin:"0px 25px 0px 0px"}} onClick={()=>{
+                        window.open("https://legendsayantan.github.io/themepatcher")
+                    }}>
+                        <p style={{margin:"0px"}}>Try Legacy Site</p>
+                    </div>
+                    <div className="button-glass" style={{margin:'0px'}} onClick={()=>{
+                        window.open("https://github.com/legendsayantan/themepatcher")
+                    }}>
+                        <p style={{margin:'0px'}}>Try Offline</p>
+                    </div>
+                </div>
                 <section className="center"
                          style={{
                              margin: '20px',
