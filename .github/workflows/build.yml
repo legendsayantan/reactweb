@@ -47,4 +47,4 @@ jobs:
           target-directory: .github/
           destination-github-username: 'legendsayantan'
           destination-repository-name: 'legendsayantan.is-a.dev'
-          target-branch: main
+          target-branch: main        
