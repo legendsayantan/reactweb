@@ -11,14 +11,13 @@
     ]
   },
   {
-    "name": "placeholder text",
-    "desc": "placeholder description text",
-    "file": "",
-    "image": "",
+    "name": "How to understand Carry Look Ahead Adder?",
+    "desc": "One of the complex circuit designs in electronics and computer architecture is Carry look ahead adder. So here is how to make sense out of the concept.",
+    "file": "carry-look-ahead-adder",
+    "image": "https://res.cloudinary.com/da0cp0s8l/image/upload/v1684764433/cla-image_ci9h3k.png",
     "tags": [
-      "pattern",
-      "loop",
-      "programming"
+      "electronics",
+      "architecture"
     ]
   },
   {

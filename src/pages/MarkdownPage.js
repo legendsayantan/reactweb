@@ -20,7 +20,7 @@ function MarkdownPage({shown, file = 'how-to-create-pattern.md'}) {
             <div className={'markdown-container'}>
                 <div style={{display: "flex", flexDirection: "row", justifyContent: "right", color: "#4264bb"}}>
                     <p>author : LegendSayantan</p></div>
-                <div style={{transform: 'scale(0.85)', position: "absolute", left: '-5vw', top: '-20vh'}}>
+                <div style={{transform: 'scale(0.9)', position: "absolute", left: '-2.5vw', top: '-75px'}}>
                     <ReactMarkdown>
                         {post}
                     </ReactMarkdown>
