@@ -27,26 +27,26 @@ Our Carry Look Ahead Generator circuit has to generate carry values **using G, P
 
 Let's simplify the logic - 
 
-`C1 = ( C0 && !G0 && P0 ) + ( G0 && !P0)`
+`C1 = ( C0 . !G0 . P0 ) + ( G0 . !P0)`
 
 `C1 = G0 + (P0 && C0)`
 
-So in a general form , the logic of one single stage of carry generation would be `C(i+1) = Gi + (Pi && Ci)`, where i = stage id.
+So in a general form , the logic of one single stage of carry generation would be `C(i+1) = Gi + (Pi . Ci)`, where i = stage id.
 
 ### Creation of multi-stage Carry Look Ahead Generator
 As we just saw, a One-stage Carry Look Ahead Generator circuit can perform carry generation for one bit of addition. But often times we need to add 4bit,8 bit carry genetation. This is why we will use multi-stage circuit.
 
-As we know, the carry generation logic for a single stage is `C(i+1) = Gi + (Pi && Ci)`.
+As we know, the carry generation logic for a single stage is `C(i+1) = Gi + (Pi . Ci)`.
 So, for a 2 bit addition, we will need 2 stages of carry generation. So, the carry generation logic for 2 bit addition would be -
 
-`C2 = G1 + (P1 && C1)`
+`C2 = G1 + (P1 . C1)`
 
 But wait! we also know the formula of C1, right? So, we can replace C1 with the formula of C1.
 
-`C2 = G1 + (P1 && (G0 + (P0 && C0)))`
+`C2 = G1 + (P1 . (G0 + (P0 . C0)))`
 
 or,
-`C2 = G1 + (P1 && G0) + (P1 && P0 && C0)`
+`C2 = G1 + (P1 . G0) + (P1 . P0 . C0)`
 
 And there we have the carry generator logic for 2 bit addition. We can create circuit diagram from this logic because it is already in SOP form.
 
@@ -54,6 +54,6 @@ We can also create the carry generation logic for 4 bit addition, 8 bit addition
 
 
 ### Carry Look Ahead Adder 
-This is how to get a full Carry Look Ahead Adder from a Carry Look Ahead Generator.
+We have to add the actual adder parts to a Carry Look Ahead Generator to get the full Carry Look Ahead Adder.
 
 ![](https://storage.googleapis.com/tb-img/production/20/05/F1_U.B_Madhu_16.05.20_D3.png)
