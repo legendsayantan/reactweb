@@ -29,7 +29,7 @@ Let's simplify the logic -
 
 `C1 = ( C0 . !G0 . P0 ) + ( G0 . !P0)`
 
-`C1 = G0 + (P0 && C0)`
+`C1 = G0 + (P0 . C0)`
 
 So in a general form , the logic of one single stage of carry generation would be `C(i+1) = Gi + (Pi . Ci)`, where i = stage id.
 
