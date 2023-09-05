@@ -29,6 +29,7 @@ import AndroidLogo from "../home/res/AndroidLogo";
 import MoreLangs from "../home/res/MoreLangs";
 import WebFrameworks from "../home/res/WebFrameworks";
 import GitHubLogo from "../home/res/GitHubLogo";
+import CircularGradient from "../background/CircularGradient";
 
 const ComponentPreviews = () => {
     return (
@@ -116,6 +117,9 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/GitHubLogo">
                 <GitHubLogo/>
+            </ComponentPreview>
+            <ComponentPreview path="/CircularGradient">
+                <CircularGradient/>
             </ComponentPreview>
         </Previews>
     )
