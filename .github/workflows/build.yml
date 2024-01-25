@@ -39,7 +39,7 @@ jobs:
           destination-github-username: 'legendsayantan'
           destination-repository-name: 'legendsayantan.is-a.dev'
           target-branch: main
-      - name: Setup workflows on is-a.dev repository
+      - name: Setup workflows
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB}}
@@ -58,7 +58,7 @@ jobs:
           destination-github-username: 'legendsayantan'
           destination-repository-name: 'sayantan.is-a.dev'
           target-branch: main
-      - name: Setup workflows on is-a.dev repository
+      - name: Setup workflows
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{secrets.API_TOKEN_GITHUB}}
