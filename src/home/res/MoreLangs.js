@@ -7,15 +7,17 @@ function MoreLangs({show = true}) {
             height: "75px",
             width: "75px",
             opacity: `${show ? "0" : "1"}`,
-            transform: `${show ? "translateY(0)" : "translateX(1000px)"}`,
-            transition: "transform 3.5s linear " + (i*0.25) + `s , ${show?"":"opacity 0.25s linear " + (3.25+i*0.25) + "s"}`,
+            transform: `${show ? "translateY(0)" : "translateX("+(1000+i*50)+"px)"}`,
+            transition: "transform "+(3.5-i*0.05)+"s linear " + (i*0.25) + `s , ${show?"":"opacity 0.25s linear " + (3.25+i*0.20) + "s"}`,
         }
     }
     return (
         <div style={{
+            opacity : show?"1":"0",
             display: "flex",
             flexDirection: "row",
             overflow: "hidden",
+            transition: show?"opacity 1.5s linear":""
         }}>
             <div style={itemStyle(0)}>
                 <svg fill="#ffffff" viewBox="0 0 32 32">

@@ -121,6 +121,9 @@ const ComponentPreviews = () => {
             <ComponentPreview path="/CircularGradient">
                 <CircularGradient/>
             </ComponentPreview>
+            <ComponentPreview path="/ComponentPreviews">
+                <ComponentPreviews/>
+            </ComponentPreview>
         </Previews>
     )
 }
