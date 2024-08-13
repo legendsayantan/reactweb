@@ -1,21 +1,4 @@
-import "./MoreLangs.css"
-import {useEffect, useState} from "react";
-
 function MoreLangs({show = true}) {
-    const [iconLevel, setIconLevel] = useState(0);
-    useEffect(() => {
-        let intervalId;
-        if (show && iconLevel<=7) {
-            intervalId = setInterval(() => {
-                setIconLevel(prevNumber => prevNumber + 1);
-            }, 250);
-        }
-        return () => {
-            if (intervalId) {
-                clearInterval(intervalId);
-            }
-        };
-    }, [show]);
 
     const itemStyle = (i)=> {
         return{
