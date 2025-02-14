@@ -13,6 +13,8 @@ const paperSizes = {
     Tabloid: { width: 279.4, height: 431.8 }
 };
 
+const round2 = (n) => Math.round(n * 100) / 100;
+
 // Convert an image source to a DataURL using a canvas
 const getImageDataUrl = (imgSrc) => {
     return new Promise((resolve, reject) => {
@@ -43,7 +45,7 @@ const getImageDataUrl = (imgSrc) => {
 const PixPact = () => {
     const [images, setImages] = useState([]);
     const [globalScale, setGlobalScale] = useState(50);
-    const [scaleOption, setScaleOption] = useState("percentage");
+    const [scaleOption, setScaleOption] = useState("columns");
     const [columnsPerPage, setColumnsPerPage] = useState(2);
     const [pageFormat, setPageFormat] = useState("A4");
     const [orientation, setOrientation] = useState("portrait");
@@ -117,7 +119,6 @@ const PixPact = () => {
 
         // Compute scaled dimensions for each image.
         const scaledImages = images.map((img, idx) => {
-            // If an individual routed is provided, use that.
             const override = img.overrideScale ? parseFloat(img.overrideScale) : null;
             if (override !== null && !isNaN(override)) {
                 return {
@@ -134,7 +135,7 @@ const PixPact = () => {
                     src: img.src
                 };
             } else {
-                // For fixed columns mode, adjust pageWidth first.
+                // Fixed columns mode: compute a uniform width.
                 const effectivePageWidth = pageWidth - ((columnsPerPage - 1) * margin);
                 const newWidth = effectivePageWidth / columnsPerPage;
                 const scale = newWidth / img.width;
@@ -154,78 +155,128 @@ const PixPact = () => {
             return [];
         }
 
-        // Sort images in descending order by area.
+        // Optional: sort images (here, descending by area).
         scaledImages.sort((a, b) => (b.width * b.height) - (a.width * a.height));
+
+        // The skyline array will hold segments of available space.
+        // Each node is an object: { x, width, y }.
+        // Initially, the entire top of the page is free.
+        let skyline = [{ x: 0, width: pageWidth, y: 0 }];
+
+        // Find a placement for an image in the current skyline.
+        const findPositionForImage = (img) => {
+            let bestY = Infinity;
+            let bestX = 0;
+            let bestNodeIndex = -1;
+            // Look for a skyline segment where the image will fit horizontally.
+            for (let i = 0; i < skyline.length; i++) {
+                let node = skyline[i];
+                if (node.width >= img.width) {
+                    // Candidate position is at (node.x, node.y).
+                    // We choose the one with the smallest y (and then leftmost x).
+                    if (node.y < bestY || (node.y === bestY && node.x < bestX)) {
+                        bestY = node.y;
+                        bestX = node.x;
+                        bestNodeIndex = i;
+                    }
+                }
+            }
+            if (bestNodeIndex === -1 || bestY + img.height > pageHeight) {
+                return null; // No fit found.
+            }
+            return { x: bestX, y: bestY, nodeIndex: bestNodeIndex };
+        };
+
+        // Update the skyline after placing an image at a given position.
+        const updateSkyline = (pos, img) => {
+            // Create a new node representing the top edge of the placed image.
+            let newNode = {
+                x: pos.x,
+                width: img.width,
+                y: pos.y + img.height + margin
+            };
+
+            let newSkyline = [];
+            // Process each existing node.
+            for (let node of skyline) {
+                // If node is completely to the left or right of the placed image, keep it.
+                if (node.x + node.width <= pos.x || node.x >= pos.x + img.width) {
+                    newSkyline.push(node);
+                } else {
+                    // If part of the node is to the left of the image, keep that segment.
+                    if (node.x < pos.x) {
+                        newSkyline.push({
+                            x: node.x,
+                            width: pos.x - node.x,
+                            y: node.y
+                        });
+                    }
+                    // If part of the node is to the right of the image, keep that segment.
+                    let rightEdge = node.x + node.width;
+                    let newRightEdge = pos.x + img.width;
+                    if (rightEdge > newRightEdge) {
+                        newSkyline.push({
+                            x: newRightEdge,
+                            width: rightEdge - newRightEdge,
+                            y: node.y
+                        });
+                    }
+                }
+            }
+            // Add the new node.
+            newSkyline.push(newNode);
+
+            // Merge adjacent nodes that have the same y.
+            newSkyline.sort((a, b) => a.x - b.x);
+            let merged = [];
+            for (let node of newSkyline) {
+                if (merged.length > 0) {
+                    let last = merged[merged.length - 1];
+                    if (last.y === node.y && last.x + last.width >= node.x) {
+                        last.width = Math.max(last.width, node.x + node.width - last.x);
+                        continue;
+                    }
+                }
+                merged.push(node);
+            }
+            skyline = merged;
+        };
 
         const pages = [];
         let remaining = [...scaledImages];
 
-        // Pack images into subpages using a column-based algorithm.
+        // Continue placing images until all are placed.
         while (remaining.length > 0) {
+            // Reset the skyline for a new page.
+            skyline = [{ x: 0, width: pageWidth, y: 0 }];
             const pagePlacements = [];
-            const columns = []; // Each column: { x, currentY, maxWidth }
             const newRemaining = [];
+
+            // Try to place each image.
             for (let img of remaining) {
-                let placed = false;
-                let bestColIndex = -1;
-                let bestColY = Infinity;
-                // Try to place in an existing column.
-                for (let i = 0; i < columns.length; i++) {
-                    const col = columns[i];
-                    if (col.currentY + img.height <= pageHeight) {
-                        if (col.currentY < bestColY) {
-                            bestColY = col.currentY;
-                            bestColIndex = i;
-                        }
-                    }
-                }
-                if (bestColIndex !== -1) {
-                    const col = columns[bestColIndex];
+                let pos = findPositionForImage(img);
+                if (pos) {
                     pagePlacements.push({
                         index: img.index,
-                        x: col.x,
-                        y: col.currentY,
+                        x: pos.x,
+                        y: pos.y,
                         width: img.width,
                         height: img.height,
                         src: img.src
                     });
-                    columns[bestColIndex].currentY += img.height + margin;
-                    columns[bestColIndex].maxWidth = Math.max(columns[bestColIndex].maxWidth, img.width);
-                    placed = true;
+                    updateSkyline(pos, img);
                 } else {
-                    // Try to start a new column.
-                    let newX = 0;
-                    if (columns.length > 0) {
-                        const lastCol = columns[columns.length - 1];
-                        newX = lastCol.x + lastCol.maxWidth + margin;
-                    }
-                    if (newX + img.width <= pageWidth) {
-                        columns.push({ x: newX, currentY: img.height + margin, maxWidth: img.width });
-                        pagePlacements.push({
-                            index: img.index,
-                            x: newX,
-                            y: 0,
-                            width: img.width,
-                            height: img.height,
-                            src: img.src
-                        });
-                        placed = true;
-                    }
-                }
-                if (!placed) {
-                    // Image could not be placed on this page.
+                    // Defer image to the next page.
                     newRemaining.push(img);
                 }
             }
             pages.push(pagePlacements);
-            if (newRemaining.length === remaining.length) {
-                // Avoid infinite loop.
-                break;
-            }
+            if (pagePlacements.length === 0) break; // Avoid infinite loop.
             remaining = newRemaining;
         }
         return pages;
     };
+
 
 
     const handleCalculate = () => {
