@@ -51,6 +51,7 @@ const PixPact = () => {
     const [orientation, setOrientation] = useState("portrait");
     const [customPageWidth, setCustomPageWidth] = useState('');
     const [customPageHeight, setCustomPageHeight] = useState('');
+    const [pageBorder, setPageBorder] = useState(0);
     const [imageMargin, setImageMargin] = useState(0);
     const [popupImageIndex, setPopupImageIndex] = useState(null);
     const [calcPages, setCalcPages] = useState(null);
@@ -116,6 +117,11 @@ const PixPact = () => {
             [pageWidth, pageHeight] = [pageHeight, pageWidth];
         }
         const margin = parseFloat(imageMargin) || 0;
+        const borderValue = parseFloat(pageBorder) || 0;
+
+        // Define the available area inside the border.
+        const availableWidth = pageWidth - 2 * borderValue;
+        const availableHeight = pageHeight - 2 * borderValue;
 
         // Compute scaled dimensions for each image.
         const scaledImages = images.map((img, idx) => {
@@ -135,9 +141,9 @@ const PixPact = () => {
                     src: img.src
                 };
             } else {
-                // Fixed columns mode: compute a uniform width.
-                const effectivePageWidth = pageWidth - ((columnsPerPage - 1) * margin);
-                const newWidth = effectivePageWidth / columnsPerPage;
+                // Fixed columns mode: use availableWidth (accounting for border)
+                const effectivePageWidth = availableWidth - ((columnsPerPage - 1) * margin);
+                const newWidth = Math.floor(effectivePageWidth / columnsPerPage);
                 const scale = newWidth / img.width;
                 return {
                     index: idx,
@@ -148,32 +154,37 @@ const PixPact = () => {
             }
         });
 
-        // Check if any image is too big (ignoring margins).
-        const tooBig = scaledImages.find(img => img.width > pageWidth || img.height > pageHeight);
+        // Check if any image is too big for the available area (ignoring margins).
+        const tooBig = scaledImages.find(
+            (img) => img.width > availableWidth || img.height > availableHeight
+        );
         if (tooBig) {
-            alert("Image " + (tooBig.index + 1) + " is too big for the page. Please reduce scale.");
+            alert(
+                "Image " +
+                (tooBig.index + 1) +
+                " is too big for the page. Please reduce scale."
+            );
             return [];
         }
 
         // Optional: sort images (here, descending by area).
-        scaledImages.sort((a, b) => (b.width * b.height) - (a.width * a.height));
+        scaledImages.sort(
+            (a, b) => b.width * b.height - a.width * a.height
+        );
 
-        // The skyline array will hold segments of available space.
-        // Each node is an object: { x, width, y }.
-        // Initially, the entire top of the page is free.
-        let skyline = [{ x: 0, width: pageWidth, y: 0 }];
+        // Initialize the skyline to the top edge of the available area.
+        // The x coordinate starts at borderValue and spans availableWidth.
+        let skyline = [{ x: borderValue, width: availableWidth, y: borderValue }];
 
         // Find a placement for an image in the current skyline.
         const findPositionForImage = (img) => {
             let bestY = Infinity;
             let bestX = 0;
             let bestNodeIndex = -1;
-            // Look for a skyline segment where the image will fit horizontally.
             for (let i = 0; i < skyline.length; i++) {
-                let node = skyline[i];
+                const node = skyline[i];
                 if (node.width >= img.width) {
-                    // Candidate position is at (node.x, node.y).
-                    // We choose the one with the smallest y (and then leftmost x).
+                    // Choose the node with the smallest y (i.e. highest available position)
                     if (node.y < bestY || (node.y === bestY && node.x < bestX)) {
                         bestY = node.y;
                         bestX = node.x;
@@ -181,15 +192,19 @@ const PixPact = () => {
                     }
                 }
             }
-            if (bestNodeIndex === -1 || bestY + img.height > pageHeight) {
-                return null; // No fit found.
+            // Ensure the image fits vertically in the available area.
+            if (
+                bestNodeIndex === -1 ||
+                bestY + img.height > borderValue + availableHeight
+            ) {
+                return null;
             }
             return { x: bestX, y: bestY, nodeIndex: bestNodeIndex };
         };
 
-        // Update the skyline after placing an image at a given position.
+        // Update the skyline after placing an image, and inject a margin gap to the right.
         const updateSkyline = (pos, img) => {
-            // Create a new node representing the top edge of the placed image.
+            // New node represents the top edge of the placed image plus vertical margin.
             let newNode = {
                 x: pos.x,
                 width: img.width,
@@ -197,13 +212,22 @@ const PixPact = () => {
             };
 
             let newSkyline = [];
-            // Process each existing node.
             for (let node of skyline) {
-                // If node is completely to the left or right of the placed image, keep it.
+                // If the node is completely to the left or right of the placed image...
                 if (node.x + node.width <= pos.x || node.x >= pos.x + img.width) {
-                    newSkyline.push(node);
+                    // For nodes to the right, shift their x by the margin to maintain horizontal spacing.
+                    if (node.x >= pos.x + img.width) {
+                        newSkyline.push({
+                            x: node.x + margin,
+                            width: node.width,
+                            y: node.y
+                        });
+                    } else {
+                        newSkyline.push(node);
+                    }
                 } else {
-                    // If part of the node is to the left of the image, keep that segment.
+                    // The node overlaps with the placed image.
+                    // Left segment (if any)
                     if (node.x < pos.x) {
                         newSkyline.push({
                             x: node.x,
@@ -211,9 +235,9 @@ const PixPact = () => {
                             y: node.y
                         });
                     }
-                    // If part of the node is to the right of the image, keep that segment.
+                    // Right segment: start after the placed image plus horizontal margin.
                     let rightEdge = node.x + node.width;
-                    let newRightEdge = pos.x + img.width;
+                    let newRightEdge = pos.x + img.width + margin;
                     if (rightEdge > newRightEdge) {
                         newSkyline.push({
                             x: newRightEdge,
@@ -223,10 +247,9 @@ const PixPact = () => {
                     }
                 }
             }
-            // Add the new node.
             newSkyline.push(newNode);
 
-            // Merge adjacent nodes that have the same y.
+            // Merge adjacent nodes with the same y.
             newSkyline.sort((a, b) => a.x - b.x);
             let merged = [];
             for (let node of newSkyline) {
@@ -245,14 +268,13 @@ const PixPact = () => {
         const pages = [];
         let remaining = [...scaledImages];
 
-        // Continue placing images until all are placed.
+        // Pack images into pages using the skyline algorithm.
         while (remaining.length > 0) {
-            // Reset the skyline for a new page.
-            skyline = [{ x: 0, width: pageWidth, y: 0 }];
+            // Reset the skyline for a new page (starting at the border).
+            skyline = [{ x: borderValue, width: availableWidth, y: borderValue }];
             const pagePlacements = [];
             const newRemaining = [];
 
-            // Try to place each image.
             for (let img of remaining) {
                 let pos = findPositionForImage(img);
                 if (pos) {
@@ -266,7 +288,7 @@ const PixPact = () => {
                     });
                     updateSkyline(pos, img);
                 } else {
-                    // Defer image to the next page.
+                    // Defer the image to the next page.
                     newRemaining.push(img);
                 }
             }
@@ -276,6 +298,7 @@ const PixPact = () => {
         }
         return pages;
     };
+
 
 
 
@@ -399,7 +422,7 @@ const PixPact = () => {
                             </select>
                         </div>
                         {pageFormat === "Custom" && (
-                            <div className="form-group custom-dimensions">
+                            <div className="form-group hrzntl">
                                 <input
                                     type="number"
                                     placeholder="Width (mm)"
@@ -489,8 +512,17 @@ const PixPact = () => {
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label>Margin (px):</label>
+                    <div className="form-group hrzntl">
+                        <label>Border:</label>
+                        <input
+                            type="number"
+                            value={pageBorder}
+                            onChange={(e) => setPageBorder(e.target.value)}
+                            className="styled-input"
+                        />
+                    </div>
+                    <div className="form-group hrzntl">
+                        <label>Margin:</label>
                         <input
                             type="number"
                             value={imageMargin}

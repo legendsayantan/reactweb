@@ -79,10 +79,11 @@
     color: #FFD700;
 }
 
-.custom-dimensions{
+.hrzntl{
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Styled input and select */
