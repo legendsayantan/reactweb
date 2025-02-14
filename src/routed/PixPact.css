@@ -10,7 +10,7 @@
 /* App Background with Custom Gradient */
 .home-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #852f00, #ff5722);
+    background: linear-gradient(135deg, #682600, #d3481d);
     padding: 20px;
     font-family: Arial, sans-serif;
     color: #333;
@@ -35,7 +35,7 @@
     font-family: Consolas, monospace;
     color: #fff;
     text-decoration: none;
-    margin: 0 25px;
+    margin: 0 15px;
     font-weight: bold;
     transition: color 0.3s;
 }
@@ -68,7 +68,7 @@
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -77,6 +77,12 @@
 .form-group label {
     font-weight: bold;
     color: #FFD700;
+}
+
+.custom-dimensions{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
 
 /* Styled input and select */
@@ -100,7 +106,7 @@
     display: inline-flex;
     align-items: center;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 2px 10px;
     border: 2px solid transparent;
     border-radius: 20px;
     transition: border 0.3s;
@@ -140,6 +146,7 @@
 }
 
 .modern-radio span {
+    color: white;
     user-select: none;
 }
 
@@ -463,3 +470,23 @@
     color: #ff5722;
     font-weight: bold;
 }
+
+.empty-preview {
+    text-align: center;
+    padding: 40px;
+    align-content: center;
+    border: 2px dashed #ffcc80;
+    border-radius: 8px;
+}
+
+.empty-preview h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #FFD700;
+}
+
+.empty-preview p {
+    font-size: 1em;
+    color: wheat;
+}
+
