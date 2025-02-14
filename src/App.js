@@ -8,13 +8,13 @@ import AllSoftware from "./components/AllSoftware";
 import AllArticles from "./components/AllArticles";
 import TypingAnimation from "./components/TypingAnimation";
 import Homepage from "./home/Homepage";
-import MarkdownPage from "./pages/MarkdownPage";
-import Debloat from "./pages/Debloat";
-import Themepatcher from "./pages/Themepatcher";
-import Xcrypt from "./pages/Xcrypt";
-import Screenery from "./pages/Screenery";
-import Autoreact from "./pages/Autoreact";
-import Webmimic from "./pages/Webmimic";
+import MarkdownPage from "./subpages/MarkdownPage";
+import Debloat from "./subpages/Debloat";
+import Themepatcher from "./subpages/Themepatcher";
+import Xcrypt from "./subpages/Xcrypt";
+import Screenery from "./subpages/Screenery";
+import Autoreact from "./subpages/Autoreact";
+import Webmimic from "./subpages/Webmimic";
 
 var AppStates = {
     home: 0,

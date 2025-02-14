@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import "../pages/Pages.css"
+import "../subpages/Pages.css"
 
 const Popup = ({showInput = true, text = 'test', onClose, onContinue}) => {
     return (
