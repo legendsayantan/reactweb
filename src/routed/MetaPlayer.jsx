@@ -98,8 +98,9 @@ export default function MetaPlayer() {
         const nextSegment = currentIndex < playlist.length - 1 ? playlist[currentIndex + 1] : null;
 
         let startSeconds = segment.startTime;
-        let endSeconds = segment.endTime;
+        let endSeconds; // Initialize as undefined
 
+        // Determine start time
         if (prevSegment && extractVideoId(prevSegment.url) === videoId) {
             if (prevSegment.endTime < segment.startTime) {
                 startSeconds = (prevSegment.endTime + segment.startTime) / 2;
@@ -110,25 +111,38 @@ export default function MetaPlayer() {
             startSeconds = segment.startTime - 2;
         }
 
-        if (nextSegment && extractVideoId(nextSegment.url) === videoId) {
-            if (segment.endTime < nextSegment.startTime) {
-                endSeconds = (segment.endTime + nextSegment.startTime) / 2;
-            } else {
-                endSeconds = segment.endTime;
-            }
-        } else {
-            endSeconds = segment.endTime + 2;
-        }
-
         startSeconds = Math.max(0, startSeconds);
+
+        // Determine end time
+        if (nextSegment) {
+            // There is a next segment
+            if (extractVideoId(nextSegment.url) === videoId) {
+                // Next segment is from the same video
+                if (segment.endTime < nextSegment.startTime) {
+                    // Gap exists, end at the midpoint to fill it
+                    endSeconds = (segment.endTime + nextSegment.startTime) / 2;
+                } else {
+                    // Continuous or overlapping, end exactly at the specified time (no buffer)
+                    endSeconds = segment.endTime;
+                }
+            } else {
+                // Next segment is a different video, add end buffer
+                endSeconds = segment.endTime + 2;
+            }
+        }
+        // If there is no nextSegment, `endSeconds` remains undefined, so the video plays to the end.
 
         const startPlayer = () => {
             if (playerRef.current && typeof playerRef.current.loadVideoById === 'function') {
-                playerRef.current.loadVideoById({
+                const playerOptions = {
                     videoId: videoId,
                     startSeconds: startSeconds,
-                    endSeconds: endSeconds,
-                });
+                };
+                // Only add endSeconds if it has a value
+                if (endSeconds !== undefined) {
+                    playerOptions.endSeconds = endSeconds;
+                }
+                playerRef.current.loadVideoById(playerOptions);
             }
         };
 
@@ -171,8 +185,10 @@ export default function MetaPlayer() {
         const handleKeyDown = (e) => {
             const playerIframe = playerRef.current?.getIframe?.();
             if (!playerIframe) return;
-            if (e.target.tagName.toLowerCase() === 'textarea') return;
-            if (document.activeElement !== playerIframe) playerIframe.focus();
+            // Always redirect keyboard input to the player
+            if (document.activeElement !== playerIframe) {
+                playerIframe.focus();
+            }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
@@ -260,8 +276,15 @@ export default function MetaPlayer() {
                 .expanded-details { margin-top: 8px; padding: 12px; background-color: rgba(17, 24, 39, 0.7); border-radius: 8px; font-size: 0.875rem; }
                 .expanded-details p { margin-bottom: 4px; }
                 .expanded-details .detail-label { font-weight: bold; color: #d1d5db; }
-                @media (min-width: 1024px) { .player-view-grid { flex-direction: row; } .playlist-sidebar { width: 33.333333%; max-height: calc(100vh - 48px); } .main-content { width: 66.666667%; max-height: calc(100vh - 48px); } }
-                @media (min-width: 1280px) { .playlist-sidebar { width: 25%; } .main-content { width: 75%; } }
+                @media (min-width: 1024px) { 
+                    .player-view-grid { flex-direction: row; } 
+                    .playlist-sidebar { width: 25%; max-height: calc(100vh - 48px); } 
+                    .main-content { width: 75%; max-height: calc(100vh - 48px); } 
+                }
+                @media (min-width: 1280px) { 
+                    .playlist-sidebar { width: 20%; } 
+                    .main-content { width: 80%; } 
+                }
             `}</style>
             <div className="meta-player-container">
                 {playlist.length === 0 ? (
