@@ -46,8 +46,8 @@ Steps:
 1. Use the timestamps for each video to split the video between individual segments.
 2. Find segments that overlap across videos.
 3. For each overlap, watch the youtube video and pick the perspective with best audio and view; note your reason.
-4. Fill in the non-overlapping segments to build one chronological, continuous timeline—no gaps, no losses.
-5. MUST include every segment (even intros or solo parts).
+4. Fill in the non-overlapping segments around the overlapping segments to build one chronological, continuous timeline WITHOUT any gaps or losses.
+5. The meta playlist MUST include every segment of the source (even intros or solo parts).
 6. Output only the final JSON—no extra text.
 USER:
 

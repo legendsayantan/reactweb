@@ -274,12 +274,13 @@ export default function MetaPlayer() {
                 .share-button { background-color: #374151; color: #d1d5db; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
                 .share-button:hover { background-color: #4b5563; }
                 .expanded-details { margin-top: 8px; padding: 12px; background-color: rgba(17, 24, 39, 0.7); border-radius: 8px; font-size: 0.875rem; }
-                .expanded-details p { margin-bottom: 4px; }
+                .expanded-details p { margin-bottom: 2px; }
                 .expanded-details .detail-label { font-weight: bold; color: #d1d5db; }
+                .expanded-details .detail-separator { margin: 0 8px; color: #4b5563; }
                 @media (min-width: 1024px) { 
                     .player-view-grid { flex-direction: row; } 
-                    .playlist-sidebar { width: 25%; max-height: calc(100vh - 48px); } 
-                    .main-content { width: 75%; max-height: calc(100vh - 48px); } 
+                    .playlist-sidebar { width: 20%; max-height: calc(100vh - 48px); } 
+                    .main-content { width: 80%; max-height: calc(100vh - 48px); } 
                 }
                 @media (min-width: 1280px) { 
                     .playlist-sidebar { width: 20%; } 
@@ -317,10 +318,13 @@ export default function MetaPlayer() {
                                     </div>
                                     {detailsExpanded && (
                                         <div className="expanded-details">
-                                            <p><span className="detail-label">Start Time:</span> {formatTime(currentSegment.startTime)}</p>
-                                            <p><span className="detail-label">End Time:</span> {formatTime(currentSegment.endTime)}</p>
-                                            <p><span className="detail-label">Duration:</span> {formatTime(currentSegment.endTime - currentSegment.startTime)}</p>
-                                            <p><span className="detail-label">Is Overlap:</span> {String(currentSegment.isOverlap)}</p>
+                                            <p>
+                                                <span className="detail-label">Time:</span> {formatTime(currentSegment.startTime)} - {formatTime(currentSegment.endTime)}
+                                                <span className="detail-separator">|</span>
+                                                <span className="detail-label">Duration:</span> {formatTime(currentSegment.endTime - currentSegment.startTime)}
+                                                <span className="detail-separator">|</span>
+                                                <span className="detail-label">Overlap:</span> {String(currentSegment.isOverlap)}
+                                            </p>
                                             {currentSegment.isOverlap && <p><span className="detail-label">Reasoning:</span> {currentSegment.reasoning}</p>}
                                         </div>
                                     )}

@@ -22,7 +22,7 @@ You are an AI video analyser. The given YouTube links contain some parts with th
 ```
 
 Task:
-Watch the videos and identify the exact timestamps each video can be split into as different segments (10 sec–15 min). when the same event is being attended by multiple creators (among provided URLs only), try to sync splitting all videos at the exact same time to the video (or audio) context so switching perspectives through timestamps is seamless. For example -
+Watch the videos and identify the exact timestamps each video can be split into as different segments (10 sec–15 min). when the same event is being attended by multiple creators (among provided URLs only), try to sync splitting all videos at the exact same time to the video (or audio) context so switching perspectives through timestamps is seamless. For example -
 in a collaborative segment, dialog/sound X is heard at 10 seconds in video of Creator A but 15 seconds in video of Creator B, so if there is a split right after dialog/sound X, the videos must be split at 11 seconds for Creator A and 16 seconds for Creator B.
 
 Criteria:
@@ -32,8 +32,7 @@ A video may be split in the following cases
 - the creator gets involved in an activity with any other creators within the provided URLs
 - NOT in the middle of a direct interaction of the creator, in their own video
 USER:
-https://www.youtube.com/watch?v=cIRcRDAUI0w
-https://youtu.be/BCeqCenwAlo
-https://youtu.be/4oxAO-dNUWk
-https://youtu.be/8SSFWtfWr5s
+https://youtu.be/itSzR2HNrIE?si=g-bMDMTwNj-I_H22
+https://youtu.be/xK5uAMmnc6o?si=EPjTedbqKZRnVwe1
+https://youtu.be/_ymATtpHHlQ?si=l5Sxu5eeunsdXilk
 Watch the video
