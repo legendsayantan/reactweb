@@ -7,6 +7,9 @@ import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "./dev";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PixPactRedirect from "./routed/PixPactRedirect";
+import ScreenViewer from "./routed/ScreenViewer";
+import WebRTCChat from "./routed/WebRTCChat";
+import MetaPlayer from "./routed/MetaPlayer";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +18,8 @@ root.render(
             <Router>
                 <Routes>
                     <Route path="/pixpact" element={<PixPactRedirect />} />
+                    <Route path="/Monitor" element={<WebRTCChat />} />
+                    <Route path="/player" element={<MetaPlayer />} />
                     <Route path="/*" element={<App />} />
                 </Routes>
             </Router>

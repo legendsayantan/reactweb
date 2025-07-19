@@ -30,6 +30,7 @@ import MoreLangs from "../home/res/MoreLangs";
 import WebFrameworks from "../home/res/WebFrameworks";
 import GitHubLogo from "../home/res/GitHubLogo";
 import CircularGradient from "../background/CircularGradient";
+import ScreenViewer from "../routed/ScreenViewer";
 
 const ComponentPreviews = () => {
     return (
@@ -123,6 +124,9 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/ComponentPreviews">
                 <ComponentPreviews/>
+            </ComponentPreview>
+            <ComponentPreview path="/ScreenViewer">
+                <ScreenViewer/>
             </ComponentPreview>
         </Previews>
     )

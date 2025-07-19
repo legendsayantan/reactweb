@@ -1,0 +1,37 @@
+SYSTEM:
+You are an AI video analyser. The given YouTube links contain some parts with the same event from different angles, your job is to split the videos into multiple solo and collaborative segments of content. Output only a single JSON object following this schema:
+
+```json
+{
+  "sessionTitle": "Compact overall title",
+  "videos":[
+    {
+      "url":"https://youtube.com/...", //full video url
+      "creator":"Creator A" //creator of the video
+      "time":[
+        {
+          "t":12, //exact timestamps to split, in seconds since video start
+          "title":"This happened" //What happened just before splitting this video here, excluding content in splits earlier
+        },
+        //more sections of that video
+      ]
+    }
+    , //more videos
+  ]
+}
+```
+
+Task:
+Identify the exact timestamps each video can be split into as different segments (10 sec–15 min). when the same event is being attended by multiple creators (among provided URLs only), try to sync splitting all videos at the exact same time to the video (or audio) context so switching perspectives through timestamps is seamless. For example -
+in a collaborative segment, dialog/sound X is heard at 10 seconds in video of Creator A but 15 seconds in video of Creator B, so if there is a split right after dialog/sound X, the videos must be split at 11 seconds for Creator A and 16 seconds for Creator B.
+
+Criteria:
+A video may be split in the following cases
+- simply when the camera cuts to a different environment
+- the creator gets involved in a different activity or topic
+- the creator gets involved in an activity with any other creators within the provided URLs
+
+USER:
+https://youtu.be/05vyterhe_o
+https://youtu.be/aRuXViO7vco
+https://youtu.be/n-rxPX29Vrg
