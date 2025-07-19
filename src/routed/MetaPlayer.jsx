@@ -257,24 +257,29 @@ export default function MetaPlayer() {
                 .load-button:hover { background-color: #06b6d4; transform: translateY(-2px); }
                 .player-view-grid { flex-grow: 1; display: flex; flex-direction: column; gap: 16px; max-width: 1536px; width: 100%; margin: 0 auto; padding-top: 16px; overflow: hidden; }
                 .playlist-sidebar { background-color: #1f2937; padding: 16px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); display: flex; flex-direction: column; flex-shrink: 0; }
-                .playlist-sidebar h2 { font-size: 1.25rem; font-weight: bold; margin-bottom: 12px; color: #67e8f9; flex-shrink: 0; }
+                .playlist-sidebar h2 { font-size: 1.25rem; font-weight: bold; margin-bottom: 12px; color: #67e8f9; flex-shrink: 0; opacity: 0.9; }
                 .playlist-scroll-area { flex-grow: 1; overflow-y: auto; padding-right: 8px; }
+                /* Custom Scrollbar Styles */
+                .playlist-scroll-area::-webkit-scrollbar { width: 8px; }
+                .playlist-scroll-area::-webkit-scrollbar-track { background: #1f2937; border-radius: 4px; }
+                .playlist-scroll-area::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+                .playlist-scroll-area::-webkit-scrollbar-thumb:hover { background: #6b7280; }
                 .playlist-item { padding: 6px 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px; background-color: #374151; }
                 .playlist-item:hover { background-color: #4b5563; }
                 .playlist-item.active { background-color: #0891b2; box-shadow: 0 4px 14px 0 rgba(8, 145, 178, 0.39); transform: scale(1.02); }
-                .playlist-item h4 { font-weight: bold; color: white; line-height: 1.25; font-size: 0.9rem; margin: 0; }
-                .playlist-item p { font-size: 0.8rem; color: #d1d5db; margin: 0; }
+                .playlist-item h4 { font-weight: bold; color: white; line-height: 1.25; font-size: 0.9rem; margin: 0; opacity: 0.9; }
+                .playlist-item p { font-size: 0.8rem; color: #d1d5db; margin: 0; opacity: 0.7; }
                 .main-content { display: flex; flex-direction: column; gap: 16px; flex-grow: 1; overflow: hidden; }
                 .player-wrapper { width: 100%; aspect-ratio: 16 / 9; background-color: black; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow: hidden; position: relative; flex-shrink: 0; }
                 .details-card { background-color: #1f2937; padding: 20px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); overflow-y: auto; }
-                .description-text { color: #9ca3af; margin: 0; }
+                .description-text { color: #9ca3af; margin: 0; opacity: 0.8; }
                 .details-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
                 .details-button { color: #22d3ee; background: none; border: none; cursor: pointer; font-weight: 600; font-size: 0.875rem; }
                 .details-button:hover { color: #67e8f9; }
                 .share-button { background-color: #374151; color: #d1d5db; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
                 .share-button:hover { background-color: #4b5563; }
                 .expanded-details { margin-top: 8px; padding: 12px; background-color: rgba(17, 24, 39, 0.7); border-radius: 8px; font-size: 0.875rem; }
-                .expanded-details p { margin-bottom: 2px; }
+                .expanded-details p { margin-bottom: 2px; opacity: 0.8;}
                 .expanded-details .detail-label { font-weight: bold; color: #d1d5db; }
                 .expanded-details .detail-separator { margin: 0 8px; color: #4b5563; }
                 @media (min-width: 1024px) { 

@@ -8,10 +8,11 @@ You are an AI video editor. you will be provided JSON data like following -
     {
       "url":"https://youtube.com/...", //full video url
       "creator":"Creator A" //creator of the video
-      "time":[
+      "segments":[
         {
-          "t":12, //exact timestamps to split, in seconds since video start
-          "title":"This happened" //What happened just before splitting this video here, excluding content in splits earlier. No potential spoilers.
+          "start":12,
+          "end":12, //exact timestamps to define a segment, in seconds since video start. Should not skip anything between two segments.
+          "title":"This happened" //What happened in this segment.
         },
         //more sections of that video
       ]
@@ -21,7 +22,7 @@ You are an AI video editor. you will be provided JSON data like following -
 }
 ```
 
-Your job is to merge them into one complete, gap‑free timeline for a seamless and lossless watching experience to the user. Watch the videos and Output only a single JSON object following this schema:
+Your job is to merge the segments into one complete, gap‑free timeline for a seamless and lossless watching experience to the user. Watch the videos and Output only a single JSON object following this schema:
 ```json
 {
   "sessionTitle": "Compact overall title",
@@ -43,12 +44,148 @@ Your job is to merge them into one complete, gap‑free timeline for a seamless 
 
 Steps:
 
-1. Use the timestamps for each video to split the video between individual segments.
-2. Find segments that overlap across videos.
-3. For each overlap, watch the youtube video and pick the perspective with best audio and view; note your reason.
-4. Fill in the non-overlapping segments around the overlapping segments to build one chronological, continuous timeline WITHOUT any gaps or losses.
-5. The meta playlist MUST include every segment of the source (even intros or solo parts).
-6. Output only the final JSON—no extra text.
+1. Find segments that overlap across videos.
+2. For each overlap, watch the youtube video and pick the perspective with best audio and view; note your reason.
+3. Fill in the non-overlapping segments around the overlapping segments to build one chronological, continuous timeline WITHOUT any gaps or losses.
+4. The meta playlist MUST include every segment of the source (even intros or solo parts).
+5. Output only the final JSON—no extra text.
 USER:
-
+{
+  "sessionTitle": "Past Life: Episode 2 - The Square Hole",
+  "videos": [
+    {
+      "url": "http://www.youtube.com/watch?v=itSzR2HNrIE",
+      "creator": "Grian",
+      "segments": [
+        {
+          "start": 0,
+          "end": 12,
+          "title": "Session 2 Intro"
+        },
+        {
+          "start": 12,
+          "end": 372,
+          "title": "Group catch up and shenanigans"
+        },
+        {
+          "start": 372,
+          "end": 1022,
+          "title": "Building the ultimate trap"
+        },
+        {
+          "start": 1022,
+          "end": 1384,
+          "title": "Getting more resources"
+        },
+        {
+          "start": 1384,
+          "end": 1652,
+          "title": "Expanding the trap"
+        },
+        {
+          "start": 1652,
+          "end": 2973,
+          "title": "Catching people in the trap"
+        },
+        {
+          "start": 2973,
+          "end": 3223,
+          "title": "Outro"
+        }
+      ]
+    },
+    {
+      "url": "http://www.youtube.com/watch?v=xK5uAMmnc6o",
+      "creator": "PearlescentMoon",
+      "segments": [
+        {
+          "start": 0,
+          "end": 17,
+          "title": "Intro"
+        },
+        {
+          "start": 17,
+          "end": 379,
+          "title": "Group catch up"
+        },
+        {
+          "start": 379,
+          "end": 1029,
+          "title": "Building the ultimate trap"
+        },
+        {
+          "start": 1029,
+          "end": 1391,
+          "title": "Getting more resources"
+        },
+        {
+          "start": 1391,
+          "end": 1659,
+          "title": "Expanding the trap"
+        },
+        {
+          "start": 1659,
+          "end": 2980,
+          "title": "Catching people in the trap"
+        },
+        {
+          "start": 2980,
+          "end": 3585,
+          "title": "Outro"
+        }
+      ]
+    },
+    {
+      "url": "http://www.youtube.com/watch?v=_ymATtpHHlQ",
+      "creator": "GeminiTay",
+      "segments": [
+        {
+          "start": 0,
+          "end": 36,
+          "title": "Intro"
+        },
+        {
+          "start": 36,
+          "end": 87,
+          "title": "Group catch up"
+        },
+        {
+          "start": 87,
+          "end": 379,
+          "title": "Going to the nether"
+        },
+        {
+          "start": 379,
+          "end": 1022,
+          "title": "Building the ultimate trap"
+        },
+        {
+          "start": 1022,
+          "end": 1384,
+          "title": "Getting more resources"
+        },
+        {
+          "start": 1384,
+          "end": 1652,
+          "title": "Expanding the trap"
+        },
+        {
+          "start": 1652,
+          "end": 2973,
+          "title": "Catching people in the trap"
+        },
+        {
+          "start": 2973,
+          "end": 3463,
+          "title": "A new alliance"
+        },
+        {
+          "start": 3463,
+          "end": 4273,
+          "title": "Outro"
+        }
+      ]
+    }
+  ]
+}
 Watch the video
