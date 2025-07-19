@@ -14,7 +14,7 @@ export default function MetaPlayer() {
     const [detailsExpanded, setDetailsExpanded] = useState(false);
     // State for the share button text
     const [shareText, setShareText] = useState('Share');
-    // BUG FIX: State to track if the YouTube API is fully initialized
+    // State to track if the YouTube API is fully initialized
     const [ytApiReady, setYtApiReady] = useState(false);
 
     // Refs for player and internal logic
@@ -35,69 +35,33 @@ export default function MetaPlayer() {
 
     // This effect loads the YouTube IFrame Player API script
     useEffect(() => {
-        // BUG FIX: The YouTube API will call this function globally when it's ready.
+        // The YouTube API will call this function globally when it's ready.
         window.onYouTubeIframeAPIReady = () => {
             setYtApiReady(true);
         };
 
         const loadScript = (id, src) => {
-            return new Promise((resolve, reject) => {
-                if (document.getElementById(id)) {
-                    // If script already exists, check if API is already ready
-                    if (window.YT && window.YT.Player) {
-                        setYtApiReady(true);
-                    }
-                    resolve();
-                    return;
+            if (document.getElementById(id)) {
+                if (window.YT && window.YT.Player) {
+                    setYtApiReady(true);
                 }
-                const tag = document.createElement('script');
-                tag.id = id;
-                tag.src = src;
-                tag.onload = resolve;
-                tag.onerror = reject;
-                const firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            });
+                return;
+            }
+            const tag = document.createElement('script');
+            tag.id = id;
+            tag.src = src;
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         };
 
-        loadScript('youtube-api', "https://www.youtube.com/iframe_api")
-            .catch(err => console.error("Script loading failed:", err));
+        loadScript('youtube-api', "https://www.youtube.com/iframe_api");
 
     }, []);
-
-    // This effect runs once to check for URL parameters
-    useEffect(() => {
-        // Only run if we haven't already loaded a playlist
-        if (playlist.length > 0) {
-            return;
-        }
-
-        try {
-            const urlParams = new URLSearchParams(window.location.search);
-            const playlistData = urlParams.get('playlist');
-            if (playlistData) {
-                // --- Decode directly from URL component ---
-                const decodedJson = decodeURIComponent(playlistData);
-                const data = JSON.parse(decodedJson);
-
-                if (data && data.metaPlaylist) {
-                    setJsonInput(JSON.stringify(data, null, 2)); // Store the original JSON
-                    setSessionTitle(data.sessionTitle || 'Meta Playlist');
-                    setPlaylist(data.metaPlaylist);
-                    setCurrentIndex(0); // Start playback
-                }
-            }
-        } catch (error) {
-            console.error("Failed to load playlist from URL:", error);
-            alert("Could not load the playlist from the URL. The data might be corrupted.");
-        }
-    }, [playlist.length]);
-
 
     // Central function to advance to the next segment
     const advanceToNextSegment = () => {
         const now = Date.now();
-        if (now - lastAdvanceTimeRef.current < 2000) { // Reduced cooldown
+        if (now - lastAdvanceTimeRef.current < 2000) {
             return;
         }
         lastAdvanceTimeRef.current = now;
@@ -107,13 +71,12 @@ export default function MetaPlayer() {
                 return prevIndex + 1;
             }
             if (playerRef.current) playerRef.current.stopVideo();
-            return -1; // End of playlist
+            return -1;
         });
     };
 
     // This is the core effect for controlling the player
     useEffect(() => {
-        // BUG FIX: Add a guard to wait for the YouTube API to be ready.
         if (currentIndex < 0 || playlist.length === 0 || !ytApiReady) {
             if (playerRef.current && typeof playerRef.current.destroy === 'function') {
                 playerRef.current.destroy();
@@ -185,7 +148,6 @@ export default function MetaPlayer() {
                 }
             }
 
-            // This is now safe to call because of the ytApiReady guard
             playerRef.current = new window.YT.Player('youtube-player', {
                 height: '100%',
                 width: '100%',
@@ -197,7 +159,7 @@ export default function MetaPlayer() {
             startPlayer();
         }
 
-    }, [currentIndex, playlist, ytApiReady]); // Add ytApiReady dependency
+    }, [currentIndex, playlist, ytApiReady]);
 
     const onPlayerStateChange = (event) => {
         if (event.data === window.YT.PlayerState.ENDED) {
@@ -244,23 +206,24 @@ export default function MetaPlayer() {
     const handleShare = () => {
         if (!jsonInput.trim()) return;
         try {
-            // --- Encode directly as a URL component ---
-            const encoded = encodeURIComponent(jsonInput);
-            const url = `${window.location.origin}${window.location.pathname}?playlist=${encoded}`;
+            // Parse the JSON to create a JavaScript object
+            const playlistObject = JSON.parse(jsonInput);
+            // Stringify the object without any whitespace (making it compact)
+            const compactJsonString = JSON.stringify(playlistObject);
 
             const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = url;
+            tempTextArea.value = compactJsonString; // Use the compact string
             document.body.appendChild(tempTextArea);
             tempTextArea.select();
             document.execCommand('copy');
             document.body.removeChild(tempTextArea);
 
-            setShareText('Copied!');
+            setShareText('Playlist data copied');
             setTimeout(() => setShareText('Share'), 2000);
 
         } catch (error) {
-            console.error("Failed to create share link:", error);
-            alert("Could not create share link.");
+            console.error("Failed to copy playlist data:", error);
+            alert("Could not copy playlist data.");
         }
     };
 
